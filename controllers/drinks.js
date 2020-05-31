@@ -4,6 +4,7 @@ const router = express.Router();
 // Model
 const Drinks = require('../models/drinks.js');
 
+
 router.get('/', (req, res) => {
     Drinks.find({}, (err, foundDrinks) => {
         res.json(foundDrinks);
