@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 // environment var
 const app = express();
-const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/merncrud';
+const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/libation_station';
 const PORT = process.env.PORT || 3000;
 
 // middleware
