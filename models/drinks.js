@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const drinkSchema = new mongoose.Schema({
-    description: String,
+    description: String
 });
 
 const Drinks = mongoose.model("Drink", drinkSchema);
