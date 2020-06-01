@@ -15,7 +15,11 @@ class Form extends React.Component {
         .then((response) => {
             return response.json()
         })
-        .then(json => console.log(json))
+        .then(json => this.setState({
+            drinks: json.drinks,
+            ingredient: ''
+        })
+        )
     }
 
     render () {
@@ -30,6 +34,26 @@ class Form extends React.Component {
                         <input type="submit" value="search"/>
                     </div>
                 </form>
+                {this.state.drinks && <DrinksList drinks={this.state.drinks}/>}
+            </div>
+        )
+    }
+}
+
+class DrinksList extends React.Component {
+    render () {
+        return (
+            <div>
+                <ul>
+                    {this.props.drinks.map((item) => {
+                        return (
+                            <li>
+                                <img src={`${item.strDrinkThumb}/preview`}/>
+                                <h4>{item.strDrink}</h4>
+                            </li>
+                        )
+                    })}
+                </ul>
             </div>
         )
     }
