@@ -1,0 +1,24 @@
+{
+  "name": "Libation_Station",
+  "version": "1.0.0",
+  "description": "Project 3 for SEIR MAE Jacob Pursell",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GabRom-187/Libation_Station.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GabRom-187/Libation_Station/issues"
+  },
+  "homepage": "https://github.com/GabRom-187/Libation_Station#readme",
+  "dependencies": {
+    "mongoose": "^5.9.16"
+  }
+}
