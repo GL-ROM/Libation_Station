@@ -2,14 +2,24 @@ class CatDropdown extends React.Component {
     render () {
         return (
             <div>
-                <label for="catSelect">Search Category:</label>
-                <select id="catSelect">
-                    <option>--Select One--</option>
-                    <option>Ingredient</option>
-                    <option>Drink Category</option>
-                    <option>Glass Type</option>
-                </select>
+                <form>
+                    <label for="catSelect">Search Category:</label>
+                    <select name="catSelect" id="catSelect" onChange={this.props.handleChange}>
+                        <option>--Select One--</option>
+                        <option value="i">Ingredient</option>
+                        <option value="c">Drink Category</option>
+                        <option value="g">Glass Type</option>
+                    </select>
+                </form>
             </div>
+        )
+    }
+}
+
+class Test extends React.Component {
+    render () {
+        return (
+            <h1>{this.props.var}</h1>
         )
     }
 }
@@ -19,11 +29,15 @@ class Form extends React.Component {
     state = {
         ingredient: '',
         ingSearchUrl: "https://www.thecocktaildb.com/api/json/v2/9973533/filter.php?i=",
-        catSelected: false
+        catChosen: false,
+        catSelect: 'notchanged'
     }
 
-    handleChange = (event) => {
-        this.setState({[event.target.id]: event.target.value})
+    handleCatSel = (event) => {
+        this.setState({catChosen: true})
+        let e = document.getElementById('catSelect');
+        let selVal = e.options[e.selectedIndex].value;
+        this.setState({catSelect: selVal});
     }
 
     handleSubmit = (event) => {
@@ -42,7 +56,7 @@ class Form extends React.Component {
     render () {
         return (
             <div>
-                <form onSubmit={this.handleSubmit}>
+                {/* <form onSubmit={this.handleSubmit}> */}
                     {/* <div>
                         <label htmlFor="ingredient">Ingr: </label>
                         <input onChange={this.handleChange} type="text" id="ingredient" name="ingredient" value={this.state.ingredient}/>
@@ -50,8 +64,9 @@ class Form extends React.Component {
                     <div>
                         <input type="submit" value="search"/>
                     </div> */}
-                    <CatDropdown />
-                </form>
+                {/* </form> */}
+                <CatDropdown handleChange={this.handleChange}/>
+                {this.state.catChosen === true && <Test var={this.state.catSelect}/>}
                 {this.state.drinks && <DrinksList drinks={this.state.drinks}/>}
             </div>
         )
