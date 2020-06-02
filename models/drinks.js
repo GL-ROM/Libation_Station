@@ -38,7 +38,6 @@ const drinkSchema = new mongoose.Schema({
     strMeasure13: { type: String, required: false },
     strMeasure14: { type: String, required: false },
     strMeasure15: { type: String, required: false }
-
 });
 
 const Drinks = mongoose.model("Drink", drinkSchema);
