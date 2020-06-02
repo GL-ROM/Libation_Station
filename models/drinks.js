@@ -4,6 +4,8 @@ const drinkSchema = new mongoose.Schema({
     idDrink: { type: String, required: false },
     strDrink: { type: String, required: false },
     strCategory: { type: String, required: false },
+    strAlcoholic: { type: String, required: false },
+    strGlass: { type: String, required: false },
     strInstructions: { type: String, required: false },
     strDrinkThumb: { type: String, required: false },
     strIngredient1: { type: String, required: false },
