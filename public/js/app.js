@@ -24,7 +24,7 @@ class SignUpForm extends React.Component {
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
-              }
+            }
         }).then(() => {
             console.log('Data was sent');
         })
@@ -168,9 +168,7 @@ class Test extends React.Component {
     render () {
         return (
             <h1>{this.props.var}</h1>
-
-bxc;d
-'dc'            )
+        )
     }
 }
 
