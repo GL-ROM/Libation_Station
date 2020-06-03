@@ -253,6 +253,32 @@ class DrinksList extends React.Component {
     }
 }
 
+class Header extends React.Component {
+    render () {
+        return (
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <a class="navbar-brand" href="#">Libation Station</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Sign Up</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Favorites</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+        )
+    }
+}
+
 class App extends React.Component {
 
     state ={
@@ -262,8 +288,8 @@ class App extends React.Component {
     render(){
         return(
             <div>
-                <h1>{this.state.description}</h1>
-                <Form state={this.state}/>
+                <Header />
+                <Form />
                 <SignUpForm state={this.state}/>
             </div>
         )
