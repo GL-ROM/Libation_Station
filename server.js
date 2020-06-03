@@ -23,9 +23,9 @@ mongoose.connection.on('disconnected', () => console.log('mongo disconnected'));
 
 // Routers
 const drinksController = require('./controllers/drinks.js');
-const usersController = require('./controllers/users.js');
-
 app.use('/drinks', drinksController);
+
+const usersController = require('./controllers/users.js');
 app.use('/users', usersController);
 
 app.listen(PORT, () => console.log("listening on port ", PORT));
