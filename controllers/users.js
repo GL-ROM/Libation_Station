@@ -16,7 +16,11 @@ user.post('/login', (req, res) => {
         if (foundUser && foundUser.password === req.body.password) {
             foundUser.loggedIn = true;
             res.redirect('/drinks')
+<<<<<<< HEAD
         } else {
+=======
+        }else {
+>>>>>>> f9593f9e346850df249938ae4d23c338e13053ac
             res.json('Login', {errorMessage: 'Incorrect Email or Password'})
         }
     })

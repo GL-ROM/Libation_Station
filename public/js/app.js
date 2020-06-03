@@ -1,8 +1,25 @@
+class CatDropdown extends React.Component {
+    render () {
+        return (
+            <div>
+                <label for="catSelect">Search Category:</label>
+                <select id="catSelect">
+                    <option>--Select One--</option>
+                    <option>Ingredient</option>
+                    <option>Drink Category</option>
+                    <option>Glass Type</option>
+                </select>
+            </div>
+        )
+    }
+}
+
 class Form extends React.Component {
 
     state = {
         ingredient: '',
         ingSearchUrl: "https://www.thecocktaildb.com/api/json/v2/9973533/filter.php?i=",
+        catSelected: false
     }
 
     handleChange = (event) => {
@@ -26,13 +43,14 @@ class Form extends React.Component {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    <div>
+                    {/* <div>
                         <label htmlFor="ingredient">Ingr: </label>
                         <input onChange={this.handleChange} type="text" id="ingredient" name="ingredient" value={this.state.ingredient}/>
                     </div>
                     <div>
                         <input type="submit" value="search"/>
-                    </div>
+                    </div> */}
+                    <CatDropdown />
                 </form>
                 {this.state.drinks && <DrinksList drinks={this.state.drinks}/>}
             </div>
