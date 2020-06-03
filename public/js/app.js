@@ -1,3 +1,4 @@
+
 class CatDropdown extends React.Component {
     render () {
         return (
@@ -6,9 +7,9 @@ class CatDropdown extends React.Component {
                     <label for="catSelect">Search Category:</label>
                     <select name="catSelect" id="catSelect" onChange={this.props.handleChange}>
                         <option>--Select One--</option>
-                        <option value="i">Ingredient</option>
-                        <option value="c">Drink Category</option>
-                        <option value="g">Glass Type</option>
+                        <option value="i=list">Ingredient</option>
+                        <option value="c=list">Drink Category</option>
+                        <option value="g=list">Glass Type</option>
                     </select>
                 </form>
             </div>
@@ -16,10 +17,25 @@ class CatDropdown extends React.Component {
     }
 }
 
-class Test extends React.Component {
+class CatList extends React.Component {
+    
     render () {
         return (
-            <h1>{this.props.var}</h1>
+            <div>
+                <form>
+                    <div>
+                        <select multiple>
+                            {this.props.catList.map((item) => {
+                                for(let x in item) {
+                                    return (
+                                        <option>{item[x]}</option>
+                                    )
+                                }
+                            })}
+                        </select>
+                    </div>
+                </form>
+            </div>
         )
     }
 }
@@ -28,16 +44,28 @@ class Form extends React.Component {
 
     state = {
         ingredient: '',
-        ingSearchUrl: "https://www.thecocktaildb.com/api/json/v2/9973533/filter.php?i=",
+        filterUrl: "https://www.thecocktaildb.com/api/json/v2/9973533/filter.php?",
+        listUrl: "https://www.thecocktaildb.com/api/json/v2/9973533/list.php?",
         catChosen: false,
-        catSelect: 'notchanged'
+        catSelect: 'notchanged',
+        catList: []
     }
 
     handleCatSel = (event) => {
         this.setState({catChosen: true})
         let e = document.getElementById('catSelect');
         let selVal = e.options[e.selectedIndex].value;
-        this.setState({catSelect: selVal});
+        this.setState({catSelect: selVal}, () => {
+            this.getCatList();
+        });
+    }
+
+    getCatList = () => {
+        fetch(this.state.listUrl + this.state.catSelect)
+        .then(resp => resp.json())
+        .then(json => this.setState({
+            catList: json.drinks
+        }))
     }
 
     handleSubmit = (event) => {
@@ -65,10 +93,19 @@ class Form extends React.Component {
                         <input type="submit" value="search"/>
                     </div> */}
                 {/* </form> */}
-                <CatDropdown handleChange={this.handleChange}/>
-                {this.state.catChosen === true && <Test var={this.state.catSelect}/>}
+                <CatDropdown handleChange={this.handleCatSel}/>
+                <Test var={this.state.catSelect}/>
+                {this.state.catChosen === true && <CatList catList={this.state.catList}/>}
                 {this.state.drinks && <DrinksList drinks={this.state.drinks}/>}
             </div>
+        )
+    }
+}
+
+class Test extends React.Component {
+    render () {
+        return (
+            <h1>{this.props.var}</h1>
         )
     }
 }
