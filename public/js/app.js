@@ -7,9 +7,9 @@ class CatDropdown extends React.Component {
                     <label for="catSelect">Search Category:</label>
                     <select name="catSelect" id="catSelect" onChange={this.props.handleChange}>
                         <option>--Select One--</option>
-                        <option value="i=list">Ingredient</option>
-                        <option value="c=list">Drink Category</option>
-                        <option value="g=list">Glass Type</option>
+                        <option value="i">Ingredient</option>
+                        <option value="c">Drink Category</option>
+                        <option value="g">Glass Type</option>
                     </select>
                 </form>
             </div>
@@ -19,26 +19,37 @@ class CatDropdown extends React.Component {
 
 class CatList extends React.Component {
     
-    render () {
+    render () { 
         return (
-            <div>
-                <form>
-                    <div>
-                        <select multiple>
-                            {this.props.catList.map((item) => {
-                                for(let x in item) {
-                                    return (
-                                        <option>{item[x]}</option>
-                                    )
-                                }
-                            })}
-                        </select>
-                    </div>
-                    <div>
-                        <input type="submit" value="Lets Drink!"/>
-                    </div>
-                </form>
-            </div>
+                <div>
+                    <form onSubmit={this.props.handleSubmit}>
+                        <div>
+                            {this.props.catSelect === 'i' ? 
+                                <select id="searchFilters" multiple>
+                                    {this.props.catList.map((item) => {
+                                    for(let x in item) {
+                                        return (
+                                            <option value={item[x]}>{item[x]}</option>
+                                        )
+                                    }
+                                })}
+                                </select> 
+                                :
+                                <select id="searchFilters">
+                                    {this.props.catList.map((item) => {
+                                    for(let x in item) {
+                                        return (
+                                            <option value={item[x]}>{item[x]}</option>
+                                        )
+                                    }
+                                })}
+                                </select>}
+                        </div>
+                        <div>
+                            <input type="submit" value="Lets Drink!"/>
+                        </div>
+                    </form>
+                </div>
         )
     }
 }
@@ -46,7 +57,7 @@ class CatList extends React.Component {
 class Form extends React.Component {
 
     state = {
-        ingredient: '',
+        searchFilters: [],
         filterUrl: "https://www.thecocktaildb.com/api/json/v2/9973533/filter.php?",
         listUrl: "https://www.thecocktaildb.com/api/json/v2/9973533/list.php?",
         catChosen: false,
@@ -64,7 +75,7 @@ class Form extends React.Component {
     }
 
     getCatList = () => {
-        fetch(this.state.listUrl + this.state.catSelect)
+        fetch(this.state.listUrl + this.state.catSelect + '=list')
         .then(resp => resp.json())
         .then(json => this.setState({
             catList: json.drinks
@@ -73,32 +84,24 @@ class Form extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        fetch(this.state.ingSearchUrl + this.state.ingredient)
-        .then((response) => {
-            return response.json()
+        let elem = document.getElementById('searchFilters');
+        let selected = [...elem.options]
+            .filter(option => option.selected)
+            .map(option => option.value)
+        this.setState({searchFilters: selected}, () => {
+            let filterStr = this.state.searchFilters.toString();
+            fetch(this.state.filterUrl + this.state.catSelect + '=' + filterStr)
+                .then(resp => resp.json())
+                .then(json => this.setState({drinks: json.drinks}))
         })
-        .then(json => this.setState({
-            drinks: json.drinks,
-            ingredient: ''
-        })
-        )
     }
 
     render () {
         return (
             <div>
-                {/* <form onSubmit={this.handleSubmit}> */}
-                    {/* <div>
-                        <label htmlFor="ingredient">Ingr: </label>
-                        <input onChange={this.handleChange} type="text" id="ingredient" name="ingredient" value={this.state.ingredient}/>
-                    </div>
-                    <div>
-                        <input type="submit" value="search"/>
-                    </div> */}
-                {/* </form> */}
                 <CatDropdown handleChange={this.handleCatSel}/>
-                <Test var={this.state.catSelect}/>
-                {this.state.catChosen === true && <CatList catList={this.state.catList}/>}
+                {/* <Test var={this.state.catSelect}/> */}
+                {this.state.catChosen === true && <CatList catList={this.state.catList} catSelect={this.state.catSelect} handleSubmit={this.handleSubmit}/>}
                 {this.state.drinks && <DrinksList drinks={this.state.drinks}/>}
             </div>
         )
