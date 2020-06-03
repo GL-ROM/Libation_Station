@@ -35,13 +35,11 @@ router.post('/user', (req, res) => {
 
     console.log(newUser);
     // code to send newUser object to database for storage.
-    // db.collection("users").save(newUser, (err, addedUser) =>{
-    //     if(err) {
-    //         console.log(err);
-    //     }
-    //     res.send('User Added');
-    // });
-});
+    Users.create(newUser, (error, createdUser) => {
+        // Once created - respond to client
+        console.log(error);
+        console.log(createdUser)});
+})
 
 // handling user login request
 router.post('/login', (req, res) => {
