@@ -27,4 +27,4 @@ const drinksController = require('./controllers/drinks.js');
 app.use('/drinks', drinksController);
 
 
-app.listen(PORT, () => console.log("listening on port ", PORT));
+app.listen(PORT, () => console.log("listening on port ", PORT)
