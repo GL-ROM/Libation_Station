@@ -165,6 +165,7 @@ class Form extends React.Component {
 }
 
 class Test extends React.Component {
+
     render () {
         return (
             <h1>{this.props.var}</h1>
@@ -173,16 +174,77 @@ class Test extends React.Component {
 }
 
 class DrinksList extends React.Component {
+
+    state = {
+        isOpen: false,
+        currentDrinkId: '',
+        currentDrinkURL: '',
+        drinkIdURL: 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=',
+        currentDrink: ''
+
+    }
+
+    openDrink = (event) => {
+
+        if(this.state.isOpen){
+            this.setState({
+                isOpen:false
+            })
+            }else{
+            event.preventDefault();
+            this.setState({
+                isOpen:true,
+                currentDrinkId: event.currentTarget.id,
+                currentDrinkURL: this.state.drinkIdURL + event.currentTarget.id
+            }, () => {
+                fetch(this.state.currentDrinkURL).then((response) => {
+                        return response.json();
+                    }
+                ).then((data)=> {
+                    this.setState({
+                        currentDrink: data
+                    })
+                }, err => console.log(err))
+            })
+        }
+    }
+
     render () {
         return (
             <div>
                 <ul>
+                    {this.state.isOpen &&
+                        <div id="modal">
+                            <div id="modal-textbox">
+                                {this.state.currentDrink &&
+                                <div>
+                                    <button onClick={this.openDrink}>X</button>
+                                    <h1 className="selectedDrinkId" >Drink: {this.state.currentDrink.drinks[0].strDrink}</h1>
+                                    <div className="currentDrinkImageDiv">
+                                        <img className="currentDrinkImage" src={this.state.currentDrink.drinks[0].strDrinkThumb}></img>
+                                    </div>
+                                    <h1 className="selectedDrinkId" >Category: {this.state.currentDrink.drinks[0].strCategory}</h1>
+                                    <h1 className="selectedDrinkId" >Ingredients: {this.state.currentDrink.drinks[0].strIngredient1}</h1>
+                                    <h1 className="selectedDrinkId" >{this.state.currentDrink.drinks[0].strIngredient2}</h1>
+                                    <h1 className="selectedDrinkId" >{this.state.currentDrink.drinks[0].strIngredient3}</h1>
+                                    <h1 className="selectedDrinkId" >{this.state.currentDrink.drinks[0].strIngredient4}</h1>
+                                    <h1 className="selectedDrinkId" >{this.state.currentDrink.drinks[0].strIngredient5}</h1>
+                                    <h1 className="selectedDrinkId" >{this.state.currentDrink.drinks[0].strIngredient6}</h1>
+                                </div>
+                                }
+                            </div>
+                        </div>
+                    }
                     {this.props.drinks.map((item) => {
                         return (
-                            <li>
-                                <img src={`${item.strDrinkThumb}/preview`}/>
-                                <h4>{item.strDrink}</h4>
-                            </li>
+                            <div>
+                                <button id={item.idDrink} value={this.state.currentDrinkId} onClick={this.openDrink}><li>
+                                    <img src={`${item.strDrinkThumb}/preview`}/>
+                                    <h4>{item.strDrink}</h4>
+                                </li></button>
+                                
+                            </div>
+                            
                         )
                     })}
                 </ul>
