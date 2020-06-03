@@ -34,6 +34,9 @@ class CatList extends React.Component {
                             })}
                         </select>
                     </div>
+                    <div>
+                        <input type="submit" value="Lets Drink!"/>
+                    </div>
                 </form>
             </div>
         )
