@@ -128,8 +128,6 @@ class DrinksList extends React.Component {
 
     }
 
-    
-    
     openDrink = (event) => {
 
         if(this.state.isOpen){
@@ -147,7 +145,6 @@ class DrinksList extends React.Component {
                         return response.json();
                     }
                 ).then((data)=> {
-                    console.log(data);
                     this.setState({
                         currentDrink: data
                     })
@@ -165,15 +162,18 @@ class DrinksList extends React.Component {
                             <div id="modal-textbox">
                                 {this.state.currentDrink &&
                                 <div>
-                                <button onClick={this.openDrink}>X</button>
-                                <h1 className="selectedDrinkId" >Drink: {this.state.currentDrink.drinks[0].strDrink}</h1>
-                                <h1 className="selectedDrinkId" >Category: {this.state.currentDrink.drinks[0].strCategory}</h1>
-                                <h1 className="selectedDrinkId" >Ingredients: {this.state.currentDrink.drinks[0].strIngredient1}</h1>
-                                <h1 className="selectedDrinkId" >{this.state.currentDrink.drinks[0].strIngredient2}</h1>
-                                <h1 className="selectedDrinkId" >{this.state.currentDrink.drinks[0].strIngredient3}</h1>
-                                <h1 className="selectedDrinkId" >{this.state.currentDrink.drinks[0].strIngredient4}</h1>
-                                <h1 className="selectedDrinkId" >{this.state.currentDrink.drinks[0].strIngredient5}</h1>
-                                <h1 className="selectedDrinkId" >{this.state.currentDrink.drinks[0].strIngredient6}</h1>
+                                    <button onClick={this.openDrink}>X</button>
+                                    <h1 className="selectedDrinkId" >Drink: {this.state.currentDrink.drinks[0].strDrink}</h1>
+                                    <div className="currentDrinkImageDiv">
+                                        <img className="currentDrinkImage" src={this.state.currentDrink.drinks[0].strDrinkThumb}></img>
+                                    </div>
+                                    <h1 className="selectedDrinkId" >Category: {this.state.currentDrink.drinks[0].strCategory}</h1>
+                                    <h1 className="selectedDrinkId" >Ingredients: {this.state.currentDrink.drinks[0].strIngredient1}</h1>
+                                    <h1 className="selectedDrinkId" >{this.state.currentDrink.drinks[0].strIngredient2}</h1>
+                                    <h1 className="selectedDrinkId" >{this.state.currentDrink.drinks[0].strIngredient3}</h1>
+                                    <h1 className="selectedDrinkId" >{this.state.currentDrink.drinks[0].strIngredient4}</h1>
+                                    <h1 className="selectedDrinkId" >{this.state.currentDrink.drinks[0].strIngredient5}</h1>
+                                    <h1 className="selectedDrinkId" >{this.state.currentDrink.drinks[0].strIngredient6}</h1>
                                 </div>
                                 }
                             </div>

@@ -22,3 +22,13 @@
 	margin: 150px auto;
 	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 }
+
+.currentDrinkImageDiv{
+    display: inline-block;
+}
+
+.currentDrinkImage{
+    width: 100%;
+    height:auto;
+    text-align: center;
+}
