@@ -122,34 +122,37 @@ class DrinksList extends React.Component {
     state = {
         isOpen: false,
         currentDrinkId: '',
-        currentDrinkName: ''
+        currentDrinkURL: '',
+        drinkIdURL: 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=',
+        currentDrink: ''
 
     }
 
     
     
     openDrink = (event) => {
-        console.log(event.currentTarget);
-        let name;
-        for(let i = 0; i < this.props.drinks.length; i++){
-            console.log(this.props.drinks.length)
-            if(this.state.currentDrinkId === this.props.drinks[i].idDrink){
-                name = this.props.drinks[i].strDrink;
-                console.log(name);
-            }
-        }
 
         if(this.state.isOpen){
             this.setState({
                 isOpen:false
             })
             }else{
+            event.preventDefault();
             this.setState({
                 isOpen:true,
                 currentDrinkId: event.currentTarget.id,
-                currentDrinkName: name
-
-            })   
+                currentDrinkURL: this.state.drinkIdURL + event.currentTarget.id
+            }, () => {
+                fetch(this.state.currentDrinkURL).then((response) => {
+                        return response.json();
+                    }
+                ).then((data)=> {
+                    console.log(data);
+                    this.setState({
+                        currentDrink: data
+                    })
+                }, err => console.log(err))
+            })
         }
     }
 
@@ -160,9 +163,19 @@ class DrinksList extends React.Component {
                     {this.state.isOpen &&
                         <div id="modal">
                             <div id="modal-textbox">
+                                {this.state.currentDrink &&
+                                <div>
                                 <button onClick={this.openDrink}>X</button>
-                                <h1 className="selectedDrinkId">{this.state.currentDrinkId}</h1>
-                                <h1>{this.state.currentDrinkName}</h1>
+                                <h1 className="selectedDrinkId" >Drink: {this.state.currentDrink.drinks[0].strDrink}</h1>
+                                <h1 className="selectedDrinkId" >Category: {this.state.currentDrink.drinks[0].strCategory}</h1>
+                                <h1 className="selectedDrinkId" >Ingredients: {this.state.currentDrink.drinks[0].strIngredient1}</h1>
+                                <h1 className="selectedDrinkId" >{this.state.currentDrink.drinks[0].strIngredient2}</h1>
+                                <h1 className="selectedDrinkId" >{this.state.currentDrink.drinks[0].strIngredient3}</h1>
+                                <h1 className="selectedDrinkId" >{this.state.currentDrink.drinks[0].strIngredient4}</h1>
+                                <h1 className="selectedDrinkId" >{this.state.currentDrink.drinks[0].strIngredient5}</h1>
+                                <h1 className="selectedDrinkId" >{this.state.currentDrink.drinks[0].strIngredient6}</h1>
+                                </div>
+                                }
                             </div>
                         </div>
                     }
