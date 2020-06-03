@@ -32,22 +32,22 @@ class SignUpForm extends React.Component {
 
     render () {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <div className="form-field">
+            <form className="sign-up-form" onSubmit={this.handleSubmit}>
+                <div className="form-group">
                     <label htmlFor="email">Email: </label>
-                    <input id="email" type="email" value={this.state.email} onChange={this.handleChange}></input>
+                    <input className="form-control" id="email" type="email" value={this.state.email} onChange={this.handleChange}></input>
                 </div>
-                <div className="form-field">
+                <div className="form-group">
                     <label htmlFor="password">Password: </label>
-                    <input id="password" type="password" value={this.state.password} onChange={this.handleChange}></input>
+                    <input className="form-control" id="password" type="password" value={this.state.password} onChange={this.handleChange}></input>
                 </div>
-                <div className="form-field">
+                <div className="form-group">
                     <label htmlFor="name">Name: </label>
-                    <input id="name" type="text" value={this.state.name} onChange={this.handleChange}></input>
+                    <input className="form-control" id="name" type="text" value={this.state.name} onChange={this.handleChange}></input>
                 </div>
-                <div className="form-field">
+                <div className="form-group">
                     <label htmlFor="dob">DOB: </label>
-                    <input id="dob" type="date" value={this.state.dob} onChange={this.handleChange}></input> 
+                    <input className="form-control" id="dob" type="date" value={this.state.dob} onChange={this.handleChange}></input> 
                 </div>
                 <input type="submit" />                 
             </form>
