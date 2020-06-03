@@ -28,4 +28,4 @@ const usersController = require('./controllers/users.js');
 app.use('/drinks', drinksController);
 app.use('/users', usersController);
 
-app.listen(PORT, () => console.log("listening on port ", PORT)
+app.listen(PORT, () => console.log("listening on port ", PORT));
