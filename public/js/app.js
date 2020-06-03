@@ -109,6 +109,7 @@ class Form extends React.Component {
 }
 
 class Test extends React.Component {
+
     render () {
         return (
             <h1>{this.props.var}</h1>
@@ -117,16 +118,64 @@ class Test extends React.Component {
 }
 
 class DrinksList extends React.Component {
+
+    state = {
+        isOpen: false,
+        currentDrinkId: '',
+        currentDrinkName: ''
+
+    }
+
+    
+    
+    openDrink = (event) => {
+        console.log(event.currentTarget);
+        let name;
+        for(let i = 0; i < this.props.drinks.length; i++){
+            console.log(this.props.drinks.length)
+            if(this.state.currentDrinkId === this.props.drinks[i].idDrink){
+                name = this.props.drinks[i].strDrink;
+                console.log(name);
+            }
+        }
+
+        if(this.state.isOpen){
+            this.setState({
+                isOpen:false
+            })
+            }else{
+            this.setState({
+                isOpen:true,
+                currentDrinkId: event.currentTarget.id,
+                currentDrinkName: name
+
+            })   
+        }
+    }
+
     render () {
         return (
             <div>
                 <ul>
+                    {this.state.isOpen &&
+                        <div id="modal">
+                            <div id="modal-textbox">
+                                <button onClick={this.openDrink}>X</button>
+                                <h1 className="selectedDrinkId">{this.state.currentDrinkId}</h1>
+                                <h1>{this.state.currentDrinkName}</h1>
+                            </div>
+                        </div>
+                    }
                     {this.props.drinks.map((item) => {
                         return (
-                            <li>
-                                <img src={`${item.strDrinkThumb}/preview`}/>
-                                <h4>{item.strDrink}</h4>
-                            </li>
+                            <div>
+                                <button id={item.idDrink} value={this.state.currentDrinkId} onClick={this.openDrink}><li>
+                                    <img src={`${item.strDrinkThumb}/preview`}/>
+                                    <h4>{item.strDrink}</h4>
+                                </li></button>
+                                
+                            </div>
+                            
                         )
                     })}
                 </ul>
