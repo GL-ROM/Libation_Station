@@ -1,3 +1,59 @@
+class SignUpForm extends React.Component {
+    state = {
+        email: '',
+        password: '',
+        name: '',
+        dob: ''
+    }
+    
+    handleChange = (event) => {
+        this.setState({[event.target.id]: event.target.value});
+    }
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+        
+        fetch('/drinks/user', {
+            body: JSON.stringify({
+                email: this.state.email,
+                password: this.state.password,
+                name: this.state.name,
+                dob: this.state.dob
+            }),
+            method: "POST",
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+              }
+        }).then(() => {
+            console.log('Data was sent');
+        })
+    }
+
+    render () {
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <div className="form-field">
+                    <label htmlFor="email">Email: </label>
+                    <input id="email" type="email" value={this.state.email} onChange={this.handleChange}></input>
+                </div>
+                <div className="form-field">
+                    <label htmlFor="password">Password: </label>
+                    <input id="password" type="password" value={this.state.password} onChange={this.handleChange}></input>
+                </div>
+                <div className="form-field">
+                    <label htmlFor="name">Name: </label>
+                    <input id="name" type="text" value={this.state.name} onChange={this.handleChange}></input>
+                </div>
+                <div className="form-field">
+                    <label htmlFor="dob">DOB: </label>
+                    <input id="dob" type="date" value={this.state.dob} onChange={this.handleChange}></input> 
+                </div>
+                <input type="submit" />                 
+            </form>
+        )
+    }
+}
 
 class CatDropdown extends React.Component {
     render () {
@@ -148,6 +204,7 @@ class App extends React.Component {
             <div>
                 <h1>{this.state.description}</h1>
                 <Form state={this.state}/>
+                <SignUpForm state={this.state}/>
             </div>
         )
     }
