@@ -25,18 +25,22 @@ router.get('/login', (req, res) => {
 
 // Route to POST/Add user to DB
 router.post('/user', (req, res) => {
+    console.log("Body:", req.body)
     let newUser = {
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
         dob: req.body.dob
     };
-    db.collection("users").save(newUser, (err, addedUser) =>{
-        if(err) {
-            console.log(err);
-        }
-        res.send('User Added');
-    });
+
+    console.log(newUser);
+    // code to send newUser object to database for storage.
+    // db.collection("users").save(newUser, (err, addedUser) =>{
+    //     if(err) {
+    //         console.log(err);
+    //     }
+    //     res.send('User Added');
+    // });
 });
 
 // handling user login request
