@@ -22,4 +22,4 @@ user.post('/login', (req, res) => {
     })
 })
 
-module.export = user;
+module.exports = user;
