@@ -26,8 +26,4 @@ const drinksController = require('./controllers/drinks.js');
 
 app.use('/drinks', drinksController);
 
-<<<<<<< HEAD
 app.listen(PORT, () => console.log("listening on port ", PORT));
-=======
-app.listen(PORT, () => console.log("listening on port ", PORT))
->>>>>>> user-schema-update
