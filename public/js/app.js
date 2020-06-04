@@ -112,13 +112,127 @@ class CatList extends React.Component {
 
 class Form extends React.Component {
 
-    state = {
+    render () {
+        return (
+            <div>
+                <CatDropdown handleChange={this.props.handleChange}/>
+                {/* <Test var={this.state.catSelect}/> */}
+                {this.props.state.catChosen === true && <CatList catList={this.props.state.catList} catSelect={this.props.state.catSelect} handleSubmit={this.props.handleSubmit}/>}
+                {this.props.state.drinks && <DrinksList drinks={this.props.state.drinks} openDrink={this.props.openDrink}/>}
+            </div>
+        )
+    }
+}
+
+class AddDrink extends React.Component {
+
+    render () {
+        return (
+            <h1>{this.props.var}</h1>
+        )
+    }
+}
+
+class DrinksList extends React.Component {
+
+    render () {
+        return (
+            <div>
+                <ul>
+                    {this.props.drinks.map((item) => {
+                        return (
+                            <div>
+                                <div id={item.idDrink} onClick={() => {
+                                            this.props.openDrink(item.idDrink)
+                                        }
+                                    }>
+                                    <li>
+                                        <img src={`${item.strDrinkThumb}/preview`}/>
+                                        <h4>{item.strDrink}</h4>
+                                    </li>
+                                </div>
+                            </div>                            
+                        )
+                    })}
+                </ul>
+            </div>
+        )
+    }
+}
+
+class ViewDrink extends React.Component {
+    render () {
+        return (
+                    <div>
+                        <button onClick={() => {this.props.changeViewMode('drinkSearch')}}>Back</button>
+                        <h1 className="selectedDrinkId" >Drink: {this.props.currentDrink.strDrink}</h1>
+                        <div className="currentDrinkImageDiv">
+                            <img className="currentDrinkImage" src={this.props.currentDrink.strDrinkThumb}></img>
+                        </div>
+                        <h1 className="selectedDrinkId" >Category: {this.props.currentDrink.strCategory}</h1>
+                        <h1 className="selectedDrinkId" >Ingredients: {this.props.currentDrink.strIngredient1}</h1>
+                        <h1 className="selectedDrinkId" >{this.props.currentDrink.strIngredient2}</h1>
+                        <h1 className="selectedDrinkId" >{this.props.currentDrink.strIngredient3}</h1>
+                        <h1 className="selectedDrinkId" >{this.props.currentDrink.strIngredient4}</h1>
+                        <h1 className="selectedDrinkId" >{this.props.currentDrink.strIngredient5}</h1>
+                        <h1 className="selectedDrinkId" >{this.props.currentDrink.strIngredient6}</h1>
+                    </div>
+        )
+    }
+}
+
+class Header extends React.Component {
+    render () {
+        return (
+                <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                    <a className="navbar-brand" href="#">Libation Station</a>
+                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div className="collapse navbar-collapse" id="navbarNav">
+                        <ul className="navbar-nav">
+                            <li className="nav-item">
+                                <a className="nav-link" href="#">Login</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#">Sign Up</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#">Favorites</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link">Add A Drink</a> 
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+        )
+    }
+}
+
+class App extends React.Component {
+
+    state ={
+        viewMode: 'drinkSearch',
+        currentDrink: '',
+        drinkIdURL: 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=',
         searchFilters: [],
         filterUrl: "https://www.thecocktaildb.com/api/json/v2/9973533/filter.php?",
         listUrl: "https://www.thecocktaildb.com/api/json/v2/9973533/list.php?",
         catChosen: false,
         catSelect: 'notchanged',
         catList: []
+    }
+
+    changeViewMode = (mode) => {
+        this.setState({viewMode: mode})
+    }
+
+    openDrink = (drinkId, event) => {
+        fetch(this.state.drinkIdURL + drinkId)
+        .then(resp => resp.json())
+        .then(json => this.setState({currentDrink: json.drinks[0]}))
+        this.changeViewMode('viewDrink');
     }
 
     handleCatSel = (event) => {
@@ -152,145 +266,17 @@ class Form extends React.Component {
         })
     }
 
-    render () {
-        return (
-            <div>
-                <CatDropdown handleChange={this.handleCatSel}/>
-                {/* <Test var={this.state.catSelect}/> */}
-                {this.state.catChosen === true && <CatList catList={this.state.catList} catSelect={this.state.catSelect} handleSubmit={this.handleSubmit}/>}
-                {this.state.drinks && <DrinksList drinks={this.state.drinks}/>}
-            </div>
-        )
-    }
-}
-
-class Test extends React.Component {
-
-    render () {
-        return (
-            <h1>{this.props.var}</h1>
-        )
-    }
-}
-
-class DrinksList extends React.Component {
-
-    state = {
-        isOpen: false,
-        currentDrinkId: '',
-        currentDrinkURL: '',
-        drinkIdURL: 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=',
-        currentDrink: ''
-
-    }
-
-    openDrink = (event) => {
-
-        if(this.state.isOpen){
-            this.setState({
-                isOpen:false
-            })
-            }else{
-            event.preventDefault();
-            this.setState({
-                isOpen:true,
-                currentDrinkId: event.currentTarget.id,
-                currentDrinkURL: this.state.drinkIdURL + event.currentTarget.id
-            }, () => {
-                fetch(this.state.currentDrinkURL).then((response) => {
-                        return response.json();
-                    }
-                ).then((data)=> {
-                    this.setState({
-                        currentDrink: data
-                    })
-                }, err => console.log(err))
-            })
-        }
-    }
-
-    render () {
-        return (
-            <div>
-                <ul>
-                    {this.state.isOpen &&
-                        <div id="modal">
-                            <div id="modal-textbox">
-                                {this.state.currentDrink &&
-                                <div>
-                                    <button onClick={this.openDrink}>X</button>
-                                    <h1 className="selectedDrinkId" >Drink: {this.state.currentDrink.drinks[0].strDrink}</h1>
-                                    <div className="currentDrinkImageDiv">
-                                        <img className="currentDrinkImage" src={this.state.currentDrink.drinks[0].strDrinkThumb}></img>
-                                    </div>
-                                    <h1 className="selectedDrinkId" >Category: {this.state.currentDrink.drinks[0].strCategory}</h1>
-                                    <h1 className="selectedDrinkId" >Ingredients: {this.state.currentDrink.drinks[0].strIngredient1}</h1>
-                                    <h1 className="selectedDrinkId" >{this.state.currentDrink.drinks[0].strIngredient2}</h1>
-                                    <h1 className="selectedDrinkId" >{this.state.currentDrink.drinks[0].strIngredient3}</h1>
-                                    <h1 className="selectedDrinkId" >{this.state.currentDrink.drinks[0].strIngredient4}</h1>
-                                    <h1 className="selectedDrinkId" >{this.state.currentDrink.drinks[0].strIngredient5}</h1>
-                                    <h1 className="selectedDrinkId" >{this.state.currentDrink.drinks[0].strIngredient6}</h1>
-                                </div>
-                                }
-                            </div>
-                        </div>
-                    }
-                    {this.props.drinks.map((item) => {
-                        return (
-                            <div>
-                                <button id={item.idDrink} value={this.state.currentDrinkId} onClick={this.openDrink}><li>
-                                    <img src={`${item.strDrinkThumb}/preview`}/>
-                                    <h4>{item.strDrink}</h4>
-                                </li></button>
-                                
-                            </div>
-                            
-                        )
-                    })}
-                </ul>
-            </div>
-        )
-    }
-}
-
-class Header extends React.Component {
-    render () {
-        return (
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <a class="navbar-brand" href="#">Libation Station</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Sign Up</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Favorites</a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-        )
-    }
-}
-
-class App extends React.Component {
-
-    state ={
-        description: 'Lets Drink!'
-    }
-
     render(){
         return(
             <div>
                 <Header />
-                <Form />
-                <SignUpForm state={this.state}/>
+                {
+                this.state.viewMode === 'drinkSearch' ? 
+                <Form handleChange={this.handleCatSel} handleSubmit={this.handleSubmit} state={this.state} openDrink={this.openDrink}/> : 
+                this.state.viewMode === 'viewDrink' ? <ViewDrink currentDrink={this.state.currentDrink} changeViewMode={this.changeViewMode}/> : ''
+                }
+                {/* <Form /> */}
+                {/* <SignUpForm state={this.state}/> */}
             </div>
         )
     }
