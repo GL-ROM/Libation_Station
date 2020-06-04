@@ -26,7 +26,7 @@ class SignUpForm extends React.Component {
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
-              }
+            }
         }).then(() => {
             console.log('Data was sent');
         })
@@ -34,22 +34,22 @@ class SignUpForm extends React.Component {
 
     render () {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <div className="form-field">
+            <form className="sign-up-form" onSubmit={this.handleSubmit}>
+                <div className="form-group">
                     <label htmlFor="email">Email: </label>
-                    <input id="email" type="email" value={this.state.email} onChange={this.handleChange}></input>
+                    <input className="form-control" id="email" type="email" value={this.state.email} onChange={this.handleChange}></input>
                 </div>
-                <div className="form-field">
+                <div className="form-group">
                     <label htmlFor="password">Password: </label>
-                    <input id="password" type="password" value={this.state.password} onChange={this.handleChange}></input>
+                    <input className="form-control" id="password" type="password" value={this.state.password} onChange={this.handleChange}></input>
                 </div>
-                <div className="form-field">
+                <div className="form-group">
                     <label htmlFor="name">Name: </label>
-                    <input id="name" type="text" value={this.state.name} onChange={this.handleChange}></input>
+                    <input className="form-control" id="name" type="text" value={this.state.name} onChange={this.handleChange}></input>
                 </div>
-                <div className="form-field">
+                <div className="form-group">
                     <label htmlFor="dob">DOB: </label>
-                    <input id="dob" type="date" value={this.state.dob} onChange={this.handleChange}></input> 
+                    <input className="form-control" id="dob" type="date" value={this.state.dob} onChange={this.handleChange}></input> 
                 </div>
                 <input type="submit" />                 
             </form>
@@ -265,6 +265,32 @@ class DrinksList extends React.Component {
     }
 }
 
+class Header extends React.Component {
+    render () {
+        return (
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <a class="navbar-brand" href="#">Libation Station</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Sign Up</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Favorites</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+        )
+    }
+}
+
 class App extends React.Component {
 
     state ={
@@ -274,8 +300,8 @@ class App extends React.Component {
     render(){
         return(
             <div>
-                <h1>{this.state.description}</h1>
-                <Form state={this.state}/>
+                <Header />
+                <Form />
                 <SignUpForm state={this.state}/>
             </div>
         )
