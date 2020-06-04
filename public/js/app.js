@@ -149,6 +149,59 @@ class AddDrink extends React.Component {
     }
 }
 
+class FavoritesPage extends React.Component { 
+
+    
+
+    deleteFromFavorites = (event) => {
+        console.log(event.currentTarget.id);
+        var target = event.currentTarget.id;
+        var remove = this.props.favorites.splice(target, 1);
+        this.setState({
+            favorites: remove
+        })
+    }
+
+    
+
+    render () {
+        return (       
+            <div class="modal fade" id="favoritesPage" tabindex="-1" role="form" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Favorites</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                {this.props.openFavorites &&
+                                    <div>
+                                    {
+                                    this.props.favorites.map((drinks, index) => {
+                                        return(
+                                            <li>
+                                                <div>{drinks.strDrink}</div>
+                                                <div>
+                                                <button id={index} onClick={this.deleteFromFavorites}>Remove</button>
+                                                </div>
+                                            </li>
+                                        )
+                                    })
+                                    }
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}
+
 class DrinksList extends React.Component {
 
     render () {
@@ -192,6 +245,7 @@ class ViewDrink extends React.Component {
                         <h1 className="selectedDrinkId" >{this.props.currentDrink.strIngredient4}</h1>
                         <h1 className="selectedDrinkId" >{this.props.currentDrink.strIngredient5}</h1>
                         <h1 className="selectedDrinkId" >{this.props.currentDrink.strIngredient6}</h1>
+                        <button onClick={this.props.addingFavorites} >Add to Favorites</button>
                     </div>
         )
     }
@@ -250,7 +304,7 @@ class Header extends React.Component {
                                 <a className="nav-link" data-toggle="modal" data-target="#sign-up-form-centered">Sign Up</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Favorites</a>
+                                <a className="nav-link" data-toggle="modal" data-target="#favoritesPage">Favorites</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link">Add A Drink</a> 
@@ -265,6 +319,8 @@ class Header extends React.Component {
 class App extends React.Component {
 
     state ={
+        openFavorites: false,
+        favorites: [],
         viewMode: 'drinkSearch',
         currentDrink: '',
         drinkIdURL: 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=',
@@ -285,6 +341,15 @@ class App extends React.Component {
         .then(resp => resp.json())
         .then(json => this.setState({currentDrink: json.drinks[0]}))
         this.changeViewMode('viewDrink');
+    }
+
+    addToFavorites = () => {
+        console.log(this.state.favorites);
+        var joined = this.state.favorites.concat(this.state.currentDrink);
+        this.setState({ 
+            openFavorites: true,
+            favorites: joined 
+        })
     }
 
     handleCatSel = (event) => {
@@ -326,8 +391,10 @@ class App extends React.Component {
                 {
                 this.state.viewMode === 'drinkSearch' ? 
                 <Form handleChange={this.handleCatSel} handleSubmit={this.handleSubmit} state={this.state} openDrink={this.openDrink}/> : 
-                this.state.viewMode === 'viewDrink' ? <ViewDrink currentDrink={this.state.currentDrink} changeViewMode={this.changeViewMode}/> : ''
+                this.state.viewMode === 'viewDrink' ? 
+                <ViewDrink currentDrink={this.state.currentDrink} changeViewMode={this.changeViewMode} addingFavorites={this.addToFavorites}/> : ''
                 }
+                <FavoritesPage props={this.state.currentDrink} favorites={this.state.favorites} openFavorites={this.state.openFavorites} />
                 <SignUpForm />
 
             </div>
