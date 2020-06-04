@@ -257,6 +257,41 @@ class Header extends React.Component {
     }
 }
 
+class AddDrink extends React.Component {
+    render () {
+        return (
+            <div>
+                <h3>Add Your Drink!</h3>
+                <form>
+                    <div className="form-group">
+                        <label htmlFor="strDrink">Name</label>
+                        <input id="strDrink" className="from-control" type="text" value={this.state.strDrink}/>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="strCategory">Category</label>
+                        <input id="strCategory" className="from-control" type="text" value={this.state.strCategory}/>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="strAlcoholic">Alcoholic?</label>
+                        <select id="strAlcoholic" className="from-control" type="text">
+                            <option value="alcoholic">Yes</option>
+                            <option valute="non-alcoholic">No</option>
+                        </select>/>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="strGlass">Glass</label>
+                        <input id="strGlass" className="from-control" type="text" value={this.state.strGlass}/>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="strInstructions">Instructions</label>
+                        <textarea id="strInstructions" className="from-control" type="text" value={this.state.strGlass}></textarea>
+                    </div>
+                </form>
+            </div>
+        )
+    }
+}
+
 class App extends React.Component {
 
     state ={
