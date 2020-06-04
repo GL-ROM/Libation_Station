@@ -31,26 +31,42 @@ class SignUpForm extends React.Component {
     }
 
     render () {
-        return (
-            <form className="sign-up-form" onSubmit={this.handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="email">Email: </label>
-                    <input className="form-control" id="email" type="email" value={this.state.email} onChange={this.handleChange}></input>
+        return (       
+            <div class="modal fade" id="sign-up-form-centered" tabindex="-1" role="form" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Sign Up Form</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form className="sign-up-form" onSubmit={this.handleSubmit}>
+                                <div className="form-group">
+                                    <label htmlFor="email">Email: </label>
+                                    <input className="form-control" id="email" type="email" value={this.state.email} onChange={this.handleChange}></input>
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="password">Password: </label>
+                                    <input className="form-control" id="password" type="password" value={this.state.password} onChange={this.handleChange}></input>
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="name">Name: </label>
+                                    <input className="form-control" id="name" type="text" value={this.state.name} onChange={this.handleChange}></input>
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="dob">DOB: </label>
+                                    <input className="form-control" id="dob" type="date" value={this.state.dob} onChange={this.handleChange}></input> 
+                                </div>
+                                <div class="modal-footer">
+                                    <input class="btn btn-primary" type="submit" /> 
+                                </div>                
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="password">Password: </label>
-                    <input className="form-control" id="password" type="password" value={this.state.password} onChange={this.handleChange}></input>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="name">Name: </label>
-                    <input className="form-control" id="name" type="text" value={this.state.name} onChange={this.handleChange}></input>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="dob">DOB: </label>
-                    <input className="form-control" id="dob" type="date" value={this.state.dob} onChange={this.handleChange}></input> 
-                </div>
-                <input type="submit" />                 
-            </form>
+            </div>
         )
     }
 }
@@ -253,7 +269,7 @@ class DrinksList extends React.Component {
     }
 }
 
-class Header extends React.Component {
+class Header extends React.Component {  
     render () {
         return (
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -267,7 +283,7 @@ class Header extends React.Component {
                                 <a class="nav-link" href="#">Login</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Sign Up</a>
+                                <a className="nav-link" data-toggle="modal" data-target="#sign-up-form-centered">Sign Up</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Favorites</a>
@@ -290,7 +306,7 @@ class App extends React.Component {
             <div>
                 <Header />
                 <Form />
-                <SignUpForm state={this.state}/>
+                <SignUpForm />
             </div>
         )
     }
