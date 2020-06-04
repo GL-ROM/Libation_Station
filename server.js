@@ -13,7 +13,7 @@ app.use(express.json()); //use .json(), not .urlencoded()
 app.use(express.static('public')) // we need to tell express to use the public directory for static files... this way our app will find index.html as the route of the application! We can then attach React to that file!
 
 // Connect to mongo
-mongoose.connect(mongoURI, { useNewUrlParser: true }, () => {
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
     console.log("MongoDB connection made!", mongoURI)
 });
 
@@ -25,6 +25,5 @@ mongoose.connection.on('disconnected', () => console.log('mongo disconnected'));
 const drinksController = require('./controllers/drinks.js');
 
 app.use('/drinks', drinksController);
-
 
 app.listen(PORT, () => console.log("listening on port ", PORT));
