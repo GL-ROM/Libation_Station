@@ -176,10 +176,31 @@ class Test extends React.Component {
 }
 
 
+
 class Favorites extends React.Component {
+    state = {
+        openFavorites: false,
+        favorites: []
+    }
+
+    addToFavorites = () => {
+        console.log(this.state.favorites);
+        var joined = this.state.favorites.concat(this.props);
+            this.setState({ 
+                openFavorites: true,
+                favorites: joined 
+            })
+    }
+
     render() {
         return(
-            <button >Add to Favorites</button>
+            <div>
+                <button onClick={this.addToFavorites} >Add to Favorites</button>
+                {this.state.openFavorites  &&
+                <h1>{this.state.favorites.length}</h1>
+                }
+                
+            </div>
         )
     }   
 }
@@ -241,7 +262,7 @@ class DrinksList extends React.Component {
                                     <h1 className="selectedDrinkId" >{this.state.currentDrink.drinks[0].strIngredient4}</h1>
                                     <h1 className="selectedDrinkId" >{this.state.currentDrink.drinks[0].strIngredient5}</h1>
                                     <h1 className="selectedDrinkId" >{this.state.currentDrink.drinks[0].strIngredient6}</h1>
-                                    <Favorites />
+                                    <Favorites props={this.state.currentDrinkId}/>
                                 </div>
                                 }
                             </div>
