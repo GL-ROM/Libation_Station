@@ -151,6 +151,19 @@ class AddDrink extends React.Component {
 
 class FavoritesPage extends React.Component { 
 
+    
+
+    deleteFromFavorites = (event) => {
+        console.log(event.currentTarget.id);
+        var target = event.currentTarget.id;
+        var remove = this.props.favorites.splice(target, 1);
+        this.setState({
+            favorites: remove
+        })
+    }
+
+    
+
     render () {
         return (       
             <div class="modal fade" id="favoritesPage" tabindex="-1" role="form" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -167,9 +180,14 @@ class FavoritesPage extends React.Component {
                                 {this.props.openFavorites &&
                                     <div>
                                     {
-                                    this.props.favorites.map((drinks) => {
+                                    this.props.favorites.map((drinks, index) => {
                                         return(
-                                            <div>{drinks.strDrink}</div>
+                                            <li>
+                                                <div>{drinks.strDrink}</div>
+                                                <div>
+                                                <button id={index} onClick={this.deleteFromFavorites}>Remove</button>
+                                                </div>
+                                            </li>
                                         )
                                     })
                                     }
