@@ -32,3 +32,7 @@
     height:auto;
     text-align: center;
 }
+
+.nav-link:hover {
+	cursor: pointer;
+}
