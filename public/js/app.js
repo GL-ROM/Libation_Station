@@ -31,26 +31,42 @@ class SignUpForm extends React.Component {
     }
 
     render () {
-        return (
-            <form className="sign-up-form" onSubmit={this.handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="email">Email: </label>
-                    <input className="form-control" id="email" type="email" value={this.state.email} onChange={this.handleChange}></input>
+        return (       
+            <div class="modal fade" id="sign-up-form-centered" tabindex="-1" role="form" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Sign Up Form</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form className="sign-up-form" onSubmit={this.handleSubmit}>
+                                <div className="form-group">
+                                    <label htmlFor="email">Email: </label>
+                                    <input className="form-control" id="email" type="email" value={this.state.email} onChange={this.handleChange}></input>
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="password">Password: </label>
+                                    <input className="form-control" id="password" type="password" value={this.state.password} onChange={this.handleChange}></input>
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="name">Name: </label>
+                                    <input className="form-control" id="name" type="text" value={this.state.name} onChange={this.handleChange}></input>
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="dob">DOB: </label>
+                                    <input className="form-control" id="dob" type="date" value={this.state.dob} onChange={this.handleChange}></input> 
+                                </div>
+                                <div class="modal-footer">
+                                    <input class="btn btn-primary" type="submit" /> 
+                                </div>                
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="password">Password: </label>
-                    <input className="form-control" id="password" type="password" value={this.state.password} onChange={this.handleChange}></input>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="name">Name: </label>
-                    <input className="form-control" id="name" type="text" value={this.state.name} onChange={this.handleChange}></input>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="dob">DOB: </label>
-                    <input className="form-control" id="dob" type="date" value={this.state.dob} onChange={this.handleChange}></input> 
-                </div>
-                <input type="submit" />                 
-            </form>
+            </div>
         )
     }
 }
@@ -181,7 +197,7 @@ class ViewDrink extends React.Component {
     }
 }
 
-class Header extends React.Component {
+class Header extends React.Component {  
     render () {
         return (
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -194,8 +210,8 @@ class Header extends React.Component {
                             <li className="nav-item">
                                 <a className="nav-link" href="#">Login</a>
                             </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">Sign Up</a>
+                            <li class="nav-item">
+                                <a className="nav-link" data-toggle="modal" data-target="#sign-up-form-centered">Sign Up</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="#">Favorites</a>
@@ -205,7 +221,38 @@ class Header extends React.Component {
                             </li>
                         </ul>
                     </div>
-                </nav>
+                <div>
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol className="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                </ol>
+                <div className="carousel-inner">
+                    <div className="carousel-item active">
+                    <img className="d-block w-100" src="https://www.tasteofhome.com/wp-content/uploads/2018/01/Passion-Fruit-Hurricanes_EXPS_JMZ18_37571_C03_14_8b-1.jpg?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&h=500"  alt="First slide"/>
+                    </div>
+                    <div className="carousel-item">
+                    <img className="d-block w-100" src="https://www.lidl-recipes.ie/var/lidl-recipes/storage/images/lidl-recipes.ie/recipes/peach-passionfruit-and-mint-mojito/2861909-1-eng-IE/Peach-Passionfruit-And-Mint-Mojito_image1200x630.jpg?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&h=500"  alt="Second slide"/>
+                    </div>
+                    <div className="carousel-item">
+                    <img className="d-block w-100" src="https://i2.wp.com/theshortordercook.com/wp-content/uploads/2020/05/thumbnail_IMG_7171.jpg?resize=1200%2C550&ssl=1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&h=500"  alt="Third slide"/>
+                    </div>
+                    <div className="carousel-item">
+                    <img className="d-block w-100" src="https://www.tasteofhome.com/wp-content/uploads/2018/01/Passion-Fruit-Hurricanes_EXPS_JMZ18_37571_C03_14_8b-1.jpg?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&h=500"  alt="Third slide"/>
+                    </div>
+                    </div>
+                <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span className="sr-only">Previous</span>
+                </a>
+                <a className="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span className="sr-only">Next</span>
+                </a>
+                </div>
+                </div>
+            </nav>   
         )
     }
 }
@@ -275,8 +322,8 @@ class App extends React.Component {
                 <Form handleChange={this.handleCatSel} handleSubmit={this.handleSubmit} state={this.state} openDrink={this.openDrink}/> : 
                 this.state.viewMode === 'viewDrink' ? <ViewDrink currentDrink={this.state.currentDrink} changeViewMode={this.changeViewMode}/> : ''
                 }
-                {/* <Form /> */}
-                {/* <SignUpForm state={this.state}/> */}
+                <SignUpForm />
+
             </div>
         )
     }
