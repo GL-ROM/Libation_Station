@@ -140,14 +140,6 @@ class Form extends React.Component {
     }
 }
 
-class AddDrink extends React.Component {
-
-    render () {
-        return (
-            <h1>{this.props.var}</h1>
-        )
-    }
-}
 
 class DrinksList extends React.Component {
 
@@ -253,7 +245,9 @@ class Header extends React.Component {
                                 <a className="nav-link" href="#">Favorites</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link">Add A Drink</a> 
+                                <a className="nav-link" onClick={() => {
+                                    this.props.changeViewMode('addDrink')
+                                }}>Add A Drink</a> 
                             </li>
                         </ul>
                     </div>
@@ -263,35 +257,85 @@ class Header extends React.Component {
 }
 
 class AddDrink extends React.Component {
+
+    render () {
+        return (
+                <div>
+                    <h3>Add Your Drink!</h3>
+                        <form>
+                            <div className="form-group">
+                                <label htmlFor="strDrink">Name</label>
+                                <input id="strDrink" className="form-control" type="text" value={this.props.state.strDrink} onChange={this.props.handleChange}/>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="strCategory">Category</label>
+                                <input id="strCategory" className="form-control" type="text" value={this.props.state.strCategory} onChange={this.props.handleChange}/>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="strAlcoholic">Alcoholic?</label>
+                                <select id="strAlcoholic" className="form-control" type="text">
+                                    <option value="alcoholic">Yes</option>
+                                    <option valute="non-alcoholic">No</option>
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="strGlass">Glass</label>
+                                <input id="strGlass" className="form-control" type="text" value={this.props.state.strGlass} onChange={this.props.handleChange}/>
+                            </div>
+                            <div>
+                                <IngredientLister state={this.props.state} handleChange={this.props.handleChange} handleSubmit={this.props.handleSubmit}/>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="strInstructions">Instructions</label>
+                                <textarea id="strInstructions" className="form-control" type="text" value={this.props.state.strInstructions} onChange={this.props.handleChange}></textarea>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="strDrinkThumb">Image</label>
+                                <input id="strDrinkThumb" className="form-control" type="text" value={this.props.state.strDrinkThumb} onChange={this.props.handleChange}/>
+                            </div>
+                            
+                            <div>
+                                <input type="submit" value="Add"/>
+                            </div>
+                        </form>
+                </div>
+        )
+    }
+}
+
+class IngredientLister extends React.Component {
     render () {
         return (
             <div>
-                <h3>Add Your Drink!</h3>
-                <form>
-                    <div className="form-group">
-                        <label htmlFor="strDrink">Name</label>
-                        <input id="strDrink" className="from-control" type="text" value={this.state.strDrink}/>
+                <div>
+                    <div>
+                        {/* preview screen */}
+                        <ol>
+                            {this.props.state.strMeasure.map((item, index) => {
+                                return (
+                                    <li>
+                                        {item} {this.props.state.strIngredient[index]}
+                                    </li>
+                                )
+                            })}
+                        </ol>
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="strCategory">Category</label>
-                        <input id="strCategory" className="from-control" type="text" value={this.state.strCategory}/>
+                    <div>
+                        <form onSubmit={this.props.handleSubmit}>
+                            <div>
+                                <label htmlFor="currMeasure">Measurement</label>
+                                <input id="currMeasure" type="text" value={this.props.state.currMeasure} onChange={this.props.handleChange}/>
+                            </div>
+                            <div>
+                                <label htmlFor="currIngredient">Ingredient</label>
+                                <input id="currIngredient" type="text" value={this.props.state.currIngredient} onChange={this.props.handleChange}/>
+                            </div>
+                            <div>
+                                <input type="submit" value="Add"/>
+                            </div>
+                        </form>
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="strAlcoholic">Alcoholic?</label>
-                        <select id="strAlcoholic" className="from-control" type="text">
-                            <option value="alcoholic">Yes</option>
-                            <option valute="non-alcoholic">No</option>
-                        </select>/>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="strGlass">Glass</label>
-                        <input id="strGlass" className="from-control" type="text" value={this.state.strGlass}/>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="strInstructions">Instructions</label>
-                        <textarea id="strInstructions" className="from-control" type="text" value={this.state.strGlass}></textarea>
-                    </div>
-                </form>
+                </div>
             </div>
         )
     }
@@ -300,7 +344,7 @@ class AddDrink extends React.Component {
 class App extends React.Component {
 
     state ={
-        viewMode: 'drinkSearch',
+        viewMode: 'addDrink',
         currentDrink: '',
         drinkIdURL: 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=',
         searchFilters: [],
@@ -308,7 +352,17 @@ class App extends React.Component {
         listUrl: "https://www.thecocktaildb.com/api/json/v2/9973533/list.php?",
         catChosen: false,
         catSelect: 'notchanged',
-        catList: []
+        catList: [],
+        strDrink: '',
+        strCategory: '',
+        strAlcoholic: '',
+        strGlass: '',
+        strInstructions: '',
+        strDrinkThumb: '',
+        strIngredient: [],
+        strMeasure: [],
+        currIngredient: '',
+        currMeasure: ''
     }
 
     changeViewMode = (mode) => {
@@ -353,15 +407,33 @@ class App extends React.Component {
         })
     }
 
+    addIngredient = (event) => {
+        event.preventDefault();
+        this.setState({
+            strMeasure: [...this.state.strMeasure, this.state.currMeasure],
+            strIngredient: [...this.state.strIngredient, this.state.currIngredient],
+            currMeasure: '',
+            currIngredient: ''
+        }, () => {
+            console.log(this.state.strMeasure)
+        })
+
+    }
+
+    handleChange = (event) => {
+        this.setState({[event.target.id]: event.target.value})
+    }
+
     render(){
         return(
             <div>
                 <Carousel />
-                <Header />
+                <Header changeViewMode={this.changeViewMode}/>
                 {
                 this.state.viewMode === 'drinkSearch' ? 
                 <Form handleChange={this.handleCatSel} handleSubmit={this.handleSubmit} state={this.state} openDrink={this.openDrink}/> : 
-                this.state.viewMode === 'viewDrink' ? <ViewDrink currentDrink={this.state.currentDrink} changeViewMode={this.changeViewMode}/> : ''
+                this.state.viewMode === 'viewDrink' ? <ViewDrink currentDrink={this.state.currentDrink} changeViewMode={this.changeViewMode}/> :
+                this.state.viewMode === 'addDrink' ? <AddDrink state={this.state} handleChange={this.handleChange} handleSubmit={this.addIngredient}/> : ''
                 }
                 <SignUpForm />
 
