@@ -176,9 +176,6 @@ class DrinksList extends React.Component {
     }
 }
 
-
-
-
 class ViewDrink extends React.Component {
     render () {
         return (
@@ -199,7 +196,6 @@ class ViewDrink extends React.Component {
         )
     }
 }
-
 
 class Header extends React.Component {  
     render () {
@@ -243,7 +239,7 @@ class Header extends React.Component {
                     <img className="d-block w-100" src="https://i2.wp.com/theshortordercook.com/wp-content/uploads/2020/05/thumbnail_IMG_7171.jpg?resize=1200%2C550&ssl=1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&h=500"  alt="Third slide"/>
                     </div>
                     <div className="carousel-item">
-                    <img className="d-block w-100" src="https://www.lidl-recipes.ie/var/lidl-recipes/storage/images/lidl-recipes.ie/recipes/peach-passionfruit-and-mint-mojito/2861909-1-eng-IE/Peach-Passionfruit-And-Mint-Mojito_image1200x630.jpg?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&h=500"  alt="Third slide"/>
+                    <img className="d-block w-100" src="https://www.tasteofhome.com/wp-content/uploads/2018/01/Passion-Fruit-Hurricanes_EXPS_JMZ18_37571_C03_14_8b-1.jpg?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&h=500"  alt="Third slide"/>
                     </div>
                     </div>
                 <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -255,32 +251,8 @@ class Header extends React.Component {
                     <span className="sr-only">Next</span>
                 </a>
                 </div>
-        )
-    }
-}
-
-class Header extends React.Component {
-    render () {
-        return (
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <a class="navbar-brand" href="#">Libation Station</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Sign Up</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Favorites</a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>   
+                </div>
+            </nav>   
         )
     }
 }
@@ -344,7 +316,6 @@ class App extends React.Component {
     render(){
         return(
             <div>
-                <Carousel />
                 <Header />
                 {
                 this.state.viewMode === 'drinkSearch' ? 
