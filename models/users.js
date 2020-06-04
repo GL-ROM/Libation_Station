@@ -6,7 +6,7 @@ const userSchema = Schema ({
     name: String,
     email: String,
     password: String,
-    dob: Date,
+    dob: String,
     loggedIn: { type:Boolean, default:false },
 },{ timestamps: true });
 
