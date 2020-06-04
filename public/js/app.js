@@ -140,14 +140,6 @@ class Form extends React.Component {
     }
 }
 
-class AddDrink extends React.Component {
-
-    render () {
-        return (
-            <h1>{this.props.var}</h1>
-        )
-    }
-}
 
 class DrinksList extends React.Component {
 
@@ -197,6 +189,42 @@ class ViewDrink extends React.Component {
     }
 }
 
+class Carousel extends React.Component {
+    render() {
+        return (
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol className="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                </ol>
+                <div className="carousel-inner">
+                    <div className="carousel-item active">
+                    <img className="d-block w-100" src="https://www.tasteofhome.com/wp-content/uploads/2018/01/Passion-Fruit-Hurricanes_EXPS_JMZ18_37571_C03_14_8b-1.jpg?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&h=500"  alt="First slide"/>
+                    </div>
+                    <div className="carousel-item">
+                    <img className="d-block w-100" src="https://www.lidl-recipes.ie/var/lidl-recipes/storage/images/lidl-recipes.ie/recipes/peach-passionfruit-and-mint-mojito/2861909-1-eng-IE/Peach-Passionfruit-And-Mint-Mojito_image1200x630.jpg?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&h=500"  alt="Second slide"/>
+                    </div>
+                    <div className="carousel-item">
+                    <img className="d-block w-100" src="https://i2.wp.com/theshortordercook.com/wp-content/uploads/2020/05/thumbnail_IMG_7171.jpg?resize=1200%2C550&ssl=1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&h=500"  alt="Third slide"/>
+                    </div>
+                    <div className="carousel-item">
+                    <img className="d-block w-100" src="https://www.lidl-recipes.ie/var/lidl-recipes/storage/images/lidl-recipes.ie/recipes/peach-passionfruit-and-mint-mojito/2861909-1-eng-IE/Peach-Passionfruit-And-Mint-Mojito_image1200x630.jpg?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&h=500"  alt="Third slide"/>
+                    </div>
+                </div>
+                <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span className="sr-only">Previous</span>
+                </a>
+                <a className="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span className="sr-only">Next</span>
+                </a>
+                </div>
+        )
+    }
+}
+
 class Header extends React.Component {  
     render () {
         return (
@@ -217,76 +245,97 @@ class Header extends React.Component {
                                 <a className="nav-link" href="#">Favorites</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link">Add A Drink</a> 
+                                <a className="nav-link" onClick={() => {
+                                    this.props.changeViewMode('addDrink')
+                                }}>Add A Drink</a> 
                             </li>
                         </ul>
                     </div>
-                <div>
-                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                <ol className="carousel-indicators">
-                    <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                </ol>
-                <div className="carousel-inner">
-                    <div className="carousel-item active">
-                    <img className="d-block w-100" src="https://www.tasteofhome.com/wp-content/uploads/2018/01/Passion-Fruit-Hurricanes_EXPS_JMZ18_37571_C03_14_8b-1.jpg?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&h=500"  alt="First slide"/>
-                    </div>
-                    <div className="carousel-item">
-                    <img className="d-block w-100" src="https://www.lidl-recipes.ie/var/lidl-recipes/storage/images/lidl-recipes.ie/recipes/peach-passionfruit-and-mint-mojito/2861909-1-eng-IE/Peach-Passionfruit-And-Mint-Mojito_image1200x630.jpg?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&h=500"  alt="Second slide"/>
-                    </div>
-                    <div className="carousel-item">
-                    <img className="d-block w-100" src="https://i2.wp.com/theshortordercook.com/wp-content/uploads/2020/05/thumbnail_IMG_7171.jpg?resize=1200%2C550&ssl=1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&h=500"  alt="Third slide"/>
-                    </div>
-                    <div className="carousel-item">
-                    <img className="d-block w-100" src="https://www.tasteofhome.com/wp-content/uploads/2018/01/Passion-Fruit-Hurricanes_EXPS_JMZ18_37571_C03_14_8b-1.jpg?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&h=500"  alt="Third slide"/>
-                    </div>
-                    </div>
-                <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span className="sr-only">Previous</span>
-                </a>
-                <a className="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span className="sr-only">Next</span>
-                </a>
-                </div>
-                </div>
-            </nav>   
+                </nav>   
         )
     }
 }
 
 class AddDrink extends React.Component {
+
+    render () {
+        return (
+                <div>
+                    <h3>Add Your Drink!</h3>
+                        <form>
+                            <div className="form-group">
+                                <label htmlFor="strDrink">Name</label>
+                                <input id="strDrink" className="form-control" type="text" value={this.props.state.strDrink} onChange={this.props.handleChange}/>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="strCategory">Category</label>
+                                <input id="strCategory" className="form-control" type="text" value={this.props.state.strCategory} onChange={this.props.handleChange}/>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="strAlcoholic">Alcoholic?</label>
+                                <select id="strAlcoholic" className="form-control" type="text">
+                                    <option value="alcoholic">Yes</option>
+                                    <option valute="non-alcoholic">No</option>
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="strGlass">Glass</label>
+                                <input id="strGlass" className="form-control" type="text" value={this.props.state.strGlass} onChange={this.props.handleChange}/>
+                            </div>
+                            <div>
+                                <IngredientLister state={this.props.state} handleChange={this.props.handleChange} handleSubmit={this.props.handleSubmit}/>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="strInstructions">Instructions</label>
+                                <textarea id="strInstructions" className="form-control" type="text" value={this.props.state.strInstructions} onChange={this.props.handleChange}></textarea>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="strDrinkThumb">Image</label>
+                                <input id="strDrinkThumb" className="form-control" type="text" value={this.props.state.strDrinkThumb} onChange={this.props.handleChange}/>
+                            </div>
+                            
+                            <div>
+                                <input type="submit" value="Add"/>
+                            </div>
+                        </form>
+                </div>
+        )
+    }
+}
+
+class IngredientLister extends React.Component {
     render () {
         return (
             <div>
-                <h3>Add Your Drink!</h3>
-                <form>
-                    <div className="form-group">
-                        <label htmlFor="strDrink">Name</label>
-                        <input id="strDrink" className="from-control" type="text" value={this.state.strDrink}/>
+                <div>
+                    <div>
+                        {/* preview screen */}
+                        <ol>
+                            {this.props.state.strMeasure.map((item, index) => {
+                                return (
+                                    <li>
+                                        {item} {this.props.state.strIngredient[index]}
+                                    </li>
+                                )
+                            })}
+                        </ol>
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="strCategory">Category</label>
-                        <input id="strCategory" className="from-control" type="text" value={this.state.strCategory}/>
+                    <div>
+                        <form onSubmit={this.props.handleSubmit}>
+                            <div>
+                                <label htmlFor="currMeasure">Measurement</label>
+                                <input id="currMeasure" type="text" value={this.props.state.currMeasure} onChange={this.props.handleChange}/>
+                            </div>
+                            <div>
+                                <label htmlFor="currIngredient">Ingredient</label>
+                                <input id="currIngredient" type="text" value={this.props.state.currIngredient} onChange={this.props.handleChange}/>
+                            </div>
+                            <div>
+                                <input type="submit" value="Add"/>
+                            </div>
+                        </form>
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="strAlcoholic">Alcoholic?</label>
-                        <select id="strAlcoholic" className="from-control" type="text">
-                            <option value="alcoholic">Yes</option>
-                            <option valute="non-alcoholic">No</option>
-                        </select>/>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="strGlass">Glass</label>
-                        <input id="strGlass" className="from-control" type="text" value={this.state.strGlass}/>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="strInstructions">Instructions</label>
-                        <textarea id="strInstructions" className="from-control" type="text" value={this.state.strGlass}></textarea>
-                    </div>
-                </form>
+                </div>
             </div>
         )
     }
@@ -295,7 +344,7 @@ class AddDrink extends React.Component {
 class App extends React.Component {
 
     state ={
-        viewMode: 'drinkSearch',
+        viewMode: 'addDrink',
         currentDrink: '',
         drinkIdURL: 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=',
         searchFilters: [],
@@ -303,7 +352,17 @@ class App extends React.Component {
         listUrl: "https://www.thecocktaildb.com/api/json/v2/9973533/list.php?",
         catChosen: false,
         catSelect: 'notchanged',
-        catList: []
+        catList: [],
+        strDrink: '',
+        strCategory: '',
+        strAlcoholic: '',
+        strGlass: '',
+        strInstructions: '',
+        strDrinkThumb: '',
+        strIngredient: [],
+        strMeasure: [],
+        currIngredient: '',
+        currMeasure: ''
     }
 
     changeViewMode = (mode) => {
@@ -348,14 +407,33 @@ class App extends React.Component {
         })
     }
 
+    addIngredient = (event) => {
+        event.preventDefault();
+        this.setState({
+            strMeasure: [...this.state.strMeasure, this.state.currMeasure],
+            strIngredient: [...this.state.strIngredient, this.state.currIngredient],
+            currMeasure: '',
+            currIngredient: ''
+        }, () => {
+            console.log(this.state.strMeasure)
+        })
+
+    }
+
+    handleChange = (event) => {
+        this.setState({[event.target.id]: event.target.value})
+    }
+
     render(){
         return(
             <div>
-                <Header />
+                <Carousel />
+                <Header changeViewMode={this.changeViewMode}/>
                 {
                 this.state.viewMode === 'drinkSearch' ? 
                 <Form handleChange={this.handleCatSel} handleSubmit={this.handleSubmit} state={this.state} openDrink={this.openDrink}/> : 
-                this.state.viewMode === 'viewDrink' ? <ViewDrink currentDrink={this.state.currentDrink} changeViewMode={this.changeViewMode}/> : ''
+                this.state.viewMode === 'viewDrink' ? <ViewDrink currentDrink={this.state.currentDrink} changeViewMode={this.changeViewMode}/> :
+                this.state.viewMode === 'addDrink' ? <AddDrink state={this.state} handleChange={this.handleChange} handleSubmit={this.addIngredient}/> : ''
                 }
                 <SignUpForm />
 
