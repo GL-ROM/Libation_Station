@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const drinkSchema = new mongoose.Schema({
-    idDrink: { type: String, required: false },
     strDrink: { type: String, required: false },
     strCategory: { type: String, required: false },
     strAlcoholic: { type: String, required: false },
