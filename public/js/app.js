@@ -1,3 +1,5 @@
+
+
 class SignUpForm extends React.Component {
     state = {
         email: '',
@@ -173,6 +175,15 @@ class Test extends React.Component {
     }
 }
 
+
+class Favorites extends React.Component {
+    render() {
+        return(
+            <button >Add to Favorites</button>
+        )
+    }   
+}
+
 class DrinksList extends React.Component {
 
     state = {
@@ -230,6 +241,7 @@ class DrinksList extends React.Component {
                                     <h1 className="selectedDrinkId" >{this.state.currentDrink.drinks[0].strIngredient4}</h1>
                                     <h1 className="selectedDrinkId" >{this.state.currentDrink.drinks[0].strIngredient5}</h1>
                                     <h1 className="selectedDrinkId" >{this.state.currentDrink.drinks[0].strIngredient6}</h1>
+                                    <Favorites />
                                 </div>
                                 }
                             </div>
