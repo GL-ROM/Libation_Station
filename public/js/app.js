@@ -262,7 +262,7 @@ class AddDrink extends React.Component {
         return (
                 <div>
                     <h3>Add Your Drink!</h3>
-                        <form>
+                        <form onSubmit={this.props.addDrink}>
                             <div className="form-group">
                                 <label htmlFor="strDrink">Name</label>
                                 <input id="strDrink" className="form-control" type="text" value={this.props.state.strDrink} onChange={this.props.handleChange}/>
@@ -321,7 +321,7 @@ class IngredientLister extends React.Component {
                         </ol>
                     </div>
                     <div>
-                        <form onSubmit={this.props.handleSubmit}>
+                        <form>
                             <div>
                                 <label htmlFor="currMeasure">Measurement</label>
                                 <input id="currMeasure" type="text" value={this.props.state.currMeasure} onChange={this.props.handleChange}/>
@@ -330,8 +330,9 @@ class IngredientLister extends React.Component {
                                 <label htmlFor="currIngredient">Ingredient</label>
                                 <input id="currIngredient" type="text" value={this.props.state.currIngredient} onChange={this.props.handleChange}/>
                             </div>
-                            <div>
-                                <input type="submit" value="Add"/>
+                            <div onClick={this.props.handleSubmit}>
+                                {/* <input type="submit" value="Add"/> */}
+                                ADD
                             </div>
                         </form>
                     </div>
@@ -393,7 +394,7 @@ class App extends React.Component {
         }))
     }
 
-    handleSubmit = (event) => {
+    getDrinks = (event) => {
         event.preventDefault();
         let elem = document.getElementById('searchFilters');
         let selected = [...elem.options]
@@ -420,6 +421,38 @@ class App extends React.Component {
 
     }
 
+    addDrink = (event) => {
+        event.preventDefault();
+        console.log('add drink ran')
+        fetch('/drinks', {
+            body: JSON.stringify({
+                strDrink: this.state.strDrink,
+                strCategory: this.state.strCategory,
+                strAlcoholic: this.state.strAlcoholic,
+                strGlass: this.state.strGlass,
+                strInstructions: this.state.strInstructions,
+                strDrinkThumb: this.state.strDrinkThumb,
+                strIngredient: this.state.strIngredient,
+                strMeasure: this.state.strMeasure,
+            }),
+            method: "POST",
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            }
+        }).then(() => console.log('data sent'))
+        .then(this.setState({
+            strDrink: '',
+                strCategory: '',
+                strAlcoholic: '',
+                strGlass: '',
+                strInstructions: '',
+                strDrinkThumb: '',
+                strIngredient: [],
+                strMeasure: [],
+        }))
+    }
+
     handleChange = (event) => {
         this.setState({[event.target.id]: event.target.value})
     }
@@ -431,9 +464,9 @@ class App extends React.Component {
                 <Header changeViewMode={this.changeViewMode}/>
                 {
                 this.state.viewMode === 'drinkSearch' ? 
-                <Form handleChange={this.handleCatSel} handleSubmit={this.handleSubmit} state={this.state} openDrink={this.openDrink}/> : 
+                <Form handleChange={this.handleCatSel} handleSubmit={this.getDrinks} state={this.state} openDrink={this.openDrink}/> : 
                 this.state.viewMode === 'viewDrink' ? <ViewDrink currentDrink={this.state.currentDrink} changeViewMode={this.changeViewMode}/> :
-                this.state.viewMode === 'addDrink' ? <AddDrink state={this.state} handleChange={this.handleChange} handleSubmit={this.addIngredient}/> : ''
+                this.state.viewMode === 'addDrink' ? <AddDrink state={this.state} handleChange={this.handleChange} handleSubmit={this.addIngredient} addDrink={this.addDrink}/> : ''
                 }
                 <SignUpForm />
 
