@@ -557,9 +557,8 @@ class App extends React.Component {
             'Accept': 'application/json, text/plain, */*',
             'Content-Type': 'application/json'
         }
-        }).then(response => {
-            console.log(response);
-        })
+        }).then(resp => resp.json())
+        .then(json1 => console.log(json1))
         .catch(error => {
             console.log("Login Error: ", error);
         })

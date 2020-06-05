@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 });
 
 
-// user log in route
+// // user log in route
 // router.get('/login', (req, res) => {
 //     res.json('Login' )
 // })
@@ -49,15 +49,15 @@ router.post('/user', (req, res) => {
 // handling user login request
 router.post('/login', (req, res) => {
     console.log("this is req.body: ", req.body);
-    // Users.findOne({email: req.body.email}, (err, foundUser) => {
-    //     if (foundUser && foundUser.password === req.body.password) {
-    //         foundUser.loggedIn = true;
-    //         console.log("You have signed in");
-    //         res.redirect('/drinks')
-    //     }else {
-    //         res.json('Login', {errorMessage: 'Incorrect Email or Password'})
-    //     }
-    // })
+    Users.findOne({email: req.body.email}, (err, foundUser) => {
+        if (foundUser && foundUser.password === req.body.password) {
+            foundUser.loggedIn = true;
+            console.log("You have signed in");
+            res.json(foundUser)
+        }else {
+            res.json('Login', {errorMessage: 'Incorrect Email or Password'})
+        }
+    })
 })
 
 module.exports = router;
