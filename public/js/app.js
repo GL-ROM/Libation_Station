@@ -312,7 +312,9 @@ class Header extends React.Component {
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Login</a>
+                                <a className="nav-link" href="#" onClick={() => {
+                                    this.props.changeViewMode('login')
+                                }}>Login</a>
                             </li>
                             <li class="nav-item">
                                 <a className="nav-link" data-toggle="modal" data-target="#sign-up-form-centered">Sign Up</a>
@@ -545,18 +547,26 @@ class App extends React.Component {
         this.setState({[event.target.id]: event.target.value})
     }
 
+    renderViewMode = () => {
+        switch(this.state.viewMode) {
+            case 'drinkSearch':
+                return <Form handleChange={this.handleCatSel} handleSubmit={this.getDrinks} state={this.state} openDrink={this.openDrink}/>;
+                break;
+            case 'viewDrink':
+                return <ViewDrink currentDrink={this.state.currentDrink} changeViewMode={this.changeViewMode} addingFavorites={this.addToFavorites}/>;
+                break;
+            case 'addDrink':
+                return <AddDrink state={this.state} handleChange={this.handleChange} handleSubmit={this.addIngredient} addDrink={this.addDrink}/>;
+                break;
+        }
+    }
+
     render(){
         return(
             <div>
                 <Carousel />
                 <Header changeViewMode={this.changeViewMode}/>
-                {
-                this.state.viewMode === 'drinkSearch' ? 
-
-                <Form handleChange={this.handleCatSel} handleSubmit={this.getDrinks} state={this.state} openDrink={this.openDrink}/> : 
-                this.state.viewMode === 'viewDrink' ? <ViewDrink currentDrink={this.state.currentDrink} changeViewMode={this.changeViewMode} addingFavorites={this.addToFavorites}/> :
-                this.state.viewMode === 'addDrink' ? <AddDrink state={this.state} handleChange={this.handleChange} handleSubmit={this.addIngredient} addDrink={this.addDrink}/> : ''
-                }
+                {this.renderViewMode()}
                 <FavoritesPage props={this.state.currentDrink} favorites={this.state.favorites} openFavorites={this.state.openFavorites} />
                 <SignUpForm />
 
