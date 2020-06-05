@@ -515,6 +515,7 @@ class App extends React.Component {
                 strDrinkThumb: '',
                 strIngredient: [],
                 strMeasure: [],
+                viewMode: 'drinkSearch'
         }))
     }
 
