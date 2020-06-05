@@ -180,16 +180,11 @@ class FavoritesPage extends React.Component {
 
     render () {
         return (       
-            <div class="modal fade" id="favoritesPage" tabindex="-1" role="form" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Favorites</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
+                    <div>
+                        <div>
+                            <h5>Favorites</h5>
                         </div>
-                        <div class="modal-body">
+                        <div>
                             <div>
                                 {this.props.openFavorites &&
                                     <div>
@@ -210,8 +205,6 @@ class FavoritesPage extends React.Component {
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
         )
     }
 }
@@ -320,7 +313,9 @@ class Header extends React.Component {
                                 <a className="nav-link" data-toggle="modal" data-target="#sign-up-form-centered">Sign Up</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" data-toggle="modal" data-target="#favoritesPage">Favorites</a>
+                                <a className="nav-link" onClick={() => {
+                                    this.props.changeViewMode('viewFavs');
+                                }}>Favorites</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" onClick={() => {
@@ -581,6 +576,9 @@ class App extends React.Component {
             case 'addDrink':
                 return <AddDrink state={this.state} handleChange={this.handleChange} handleSubmit={this.addIngredient} addDrink={this.addDrink}/>;
                 break;
+            case 'viewFavs':
+                return <FavoritesPage props={this.state.currentDrink} favorites={this.state.favorites} openFavorites={this.state.openFavorites} />;
+                break;
             case 'login':
                 return <LoginForm state={this.state} handleChange={this.handleChange} handleLogin={this.handleLogin}/>
                 break;
@@ -593,7 +591,6 @@ class App extends React.Component {
                 <Carousel />
                 <Header changeViewMode={this.changeViewMode}/>
                 {this.renderViewMode()}
-                <FavoritesPage props={this.state.currentDrink} favorites={this.state.favorites} openFavorites={this.state.openFavorites} />
                 <SignUpForm />
 
             </div>
