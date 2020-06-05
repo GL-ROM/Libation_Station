@@ -12,11 +12,11 @@ router.get('/', (req, res) => {
     });
 });
 
-
-// // user log in route
-// router.get('/login', (req, res) => {
-//     res.json('Login' )
-// })
+router.get('/:id', (req,res) => {
+    Users.findById(req.params.id, (err, data) => {
+        res.json(data)
+    })
+})
 
 // Route to POST/Add user to DB
 router.post('/user', (req, res) => {
@@ -57,6 +57,16 @@ router.post('/login', (req, res) => {
         }else {
             res.json('Login', {errorMessage: 'Incorrect Email or Password'})
         }
+    })
+})
+
+//adding to favorites
+router.put('/:userID', (req, res) => {
+    console.log('userID', req.params.userID)
+    console.log('req.body-=-', req.body)
+    Users.findByIdAndUpdate(req.params.userID, {$push: {favorites: req.body}}, (err, data) => {
+        console.log('---', data)
+        res.json(data)
     })
 })
 
