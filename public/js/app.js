@@ -96,7 +96,6 @@ class LoginForm extends React.Component {
 class CatDropdown extends React.Component {
     render () {
         return (
-            <div>
                 <form>
                     <div className="form-group">
                         <label for="catSelect">Search Category:</label>
@@ -108,7 +107,6 @@ class CatDropdown extends React.Component {
                         </select>
                     </div>
                 </form>
-            </div>
         )
     }
 }
@@ -197,24 +195,26 @@ class DrinksList extends React.Component {
 
     render () {
         return (
-            <div>
-                <ul>
+            <div className="container">
+                <div className="row">
+                <div className="col-md-8">
                     {this.props.drinks.map((item) => {
                         return (
-                            <div>
+                            <div className="card mb-4">
                                 <div id={item.idDrink} onClick={() => {
                                             this.props.openDrink(item.idDrink)
                                         }
                                     }>
-                                    <li>
-                                        <img src={`${item.strDrinkThumb}/preview`}/>
-                                        <h4>{item.strDrink}</h4>
-                                    </li>
+                                        <div className="card-body">
+                                        <h3 className="card-title">{item.strDrink}</h3>
+                                        <img className="card-img-top img-fluid rounded" src={`${item.strDrinkThumb}/preview`} alt="Card image cap"/>
+                                        </div>
                                 </div>
                             </div>                            
                         )
                     })}
-                </ul>
+                </div>
+                </div>
             </div>
         )
     }
@@ -307,27 +307,27 @@ class Carousel extends React.Component {
 class Header extends React.Component {  
     render () {
         return (
-                <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                    <a className="navbar-brand" href="#">Libation Station</a>
-                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <a className="navbar-brand" href="#"><h3>Libation Station</h3></a>
+                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div className="collapse navbar-collapse" id="navbarNav">
+                    <div className="collapse navbar-collapse" id="navbarResponsive">
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <a className="nav-link" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" onClick={() => {
+                                <a className="nav-link" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" onClick={() => {
                                     this.props.changeViewMode('login')
                                 }}>Login</a>
                             </li>
                             <li class="nav-item">
                                 <a className="nav-link" data-toggle="modal" data-target="#sign-up-form-centered">Sign Up</a>
                             </li>
-                            <li className="nav-item" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <li className="nav-item" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                                 <a className="nav-link" onClick={() => {
                                     this.props.changeViewMode('viewFavs');
                                 }}>Favorites</a>
                             </li>
-                            <li className="nav-item" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <li className="nav-item" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                                 <a className="nav-link" onClick={() => {
                                     this.props.changeViewMode('addDrink')
                                 }}>Add A Drink</a> 
