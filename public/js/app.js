@@ -321,27 +321,27 @@ class Carousel extends React.Component {
 class Header extends React.Component {  
     render () {
         return (
-                <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                    <a className="navbar-brand" href="#">Libation Station</a>
-                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <a className="navbar-brand" href="#"><h3>Libation Station</h3></a>
+                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div className="collapse navbar-collapse" id="navbarNav">
+                    <div className="collapse navbar-collapse" id="navbarResponsive">
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <a className="nav-link" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" onClick={() => {
+                                <a className="nav-link" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" onClick={() => {
                                     this.props.changeViewMode('login')
                                 }}>Login</a>
                             </li>
                             <li class="nav-item">
                                 <a className="nav-link" data-toggle="modal" data-target="#sign-up-form-centered">Sign Up</a>
                             </li>
-                            <li className="nav-item" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <li className="nav-item" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                                 <a className="nav-link" onClick={() => {
                                     this.props.changeViewMode('viewFavs');
                                 }}>Favorites</a>
                             </li>
-                            <li className="nav-item" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <li className="nav-item" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                                 <a className="nav-link" onClick={() => {
                                     this.props.changeViewMode('addDrink')
                                 }}>Add A Drink</a> 
