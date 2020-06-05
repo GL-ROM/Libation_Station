@@ -25,7 +25,7 @@ router.get('/login', (req, res) => {
 
 // Route to POST/Add user to DB
 router.post('/user', (req, res) => {
-    console.log("Body:", req.body)
+    // console.log("Body:", req.body)
     let newUser = {
         name: req.body.name,
         email: req.body.email,
@@ -37,7 +37,6 @@ router.post('/user', (req, res) => {
     // code to send newUser object to database for storage.
     Users.create(newUser, (error, createdUser) => {
         // Once created - respond to client
-        console.log(error);
         console.log(createdUser)});
 })
 

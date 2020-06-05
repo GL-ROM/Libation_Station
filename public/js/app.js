@@ -344,7 +344,6 @@ class App extends React.Component {
     render(){
         return(
             <div>
-                <Carousel />
                 <Header />
                 {
                 this.state.viewMode === 'drinkSearch' ? 
