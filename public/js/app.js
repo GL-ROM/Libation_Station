@@ -548,12 +548,8 @@ class App extends React.Component {
     render(){
         return(
             <div>
-<<<<<<< HEAD
-                <Header />
-=======
                 <Carousel />
                 <Header changeViewMode={this.changeViewMode}/>
->>>>>>> 1d076b43c077851dcab92dbf4cc8c8ccdae09461
                 {
                 this.state.viewMode === 'drinkSearch' ? 
 
