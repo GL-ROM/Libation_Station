@@ -71,6 +71,28 @@ class SignUpForm extends React.Component {
     }
 }
 
+class LoginForm extends React.Component {
+    render () {
+        return (
+            <div>
+                <form>
+                    <div className="form-group">
+                        <label htmlFor="logEmail">Email</label>
+                        <input id="logEmail" className="form-control" type="text" value={this.props.state.logEmail} onChange={this.props.handleChange}/>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="logPass">Password</label>
+                        <input id="logPass" className="form-control" type="text" value={this.props.state.logPass} onChange={this.props.handleChange}/>
+                    </div>
+                    <div>
+                        <input type="submit" value="login"/>
+                    </div>
+                </form>
+            </div>
+        )
+    }
+}
+
 class CatDropdown extends React.Component {
     render () {
         return (
