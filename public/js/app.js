@@ -158,38 +158,31 @@ class FavoritesPage extends React.Component {
 
     render () {
         return (       
-            <div class="modal fade" id="favoritesPage" tabindex="-1" role="form" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Favorites</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div>
-                                {this.props.openFavorites &&
-                                    <div>
-                                    {
-                                    this.props.favorites.map((drinks, index) => {
-                                        return(
-                                            <li>
-                                                <div>{drinks.strDrink}</div>
-                                                <div>
-                                                <button id={index} onClick={this.deleteFromFavorites}>Remove</button>
-                                                </div>
-                                            </li>
-                                        )
-                                    })
-                                    }
-                                    </div>
+                <div className="">
+                    <div class="">
+                        <h5 class="" id="">Favorites</h5>
+                    </div>
+                    <div class="">
+                        <div>
+                            {this.props.openFavorites &&
+                                <div>
+                                {
+                                this.props.favorites.map((drinks, index) => {
+                                    return(
+                                        <li>
+                                            <div>{drinks.strDrink}</div>
+                                            <div>
+                                            <button id={index} onClick={this.deleteFromFavorites}>Remove</button>
+                                            </div>
+                                        </li>
+                                    )
+                                })
                                 }
-                            </div>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>
-            </div>
         )
     }
 }
@@ -296,7 +289,9 @@ class Header extends React.Component {
                                 <a className="nav-link" data-toggle="modal" data-target="#sign-up-form-centered">Sign Up</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" data-toggle="modal" data-target="#favoritesPage">Favorites</a>
+                                <a className="nav-link" onClick={() => {
+                                    this.props.changeViewMode('viewFavs')
+                                }}>Favorites</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" onClick={() => {
@@ -533,9 +528,10 @@ class App extends React.Component {
 
                 <Form handleChange={this.handleCatSel} handleSubmit={this.getDrinks} state={this.state} openDrink={this.openDrink}/> : 
                 this.state.viewMode === 'viewDrink' ? <ViewDrink currentDrink={this.state.currentDrink} changeViewMode={this.changeViewMode} addingFavorites={this.addToFavorites}/> :
-                this.state.viewMode === 'addDrink' ? <AddDrink state={this.state} handleChange={this.handleChange} handleSubmit={this.addIngredient} addDrink={this.addDrink}/> : ''
+                this.state.viewMode === 'addDrink' ? <AddDrink state={this.state} handleChange={this.handleChange} handleSubmit={this.addIngredient} addDrink={this.addDrink}/> :
+                this.state.viewMode === 'viewFavs' ? <FavoritesPage props={this.state.currentDrink} favorites={this.state.favorites} openFavorites={this.state.openFavorites} /> : ''
                 }
-                <FavoritesPage props={this.state.currentDrink} favorites={this.state.favorites} openFavorites={this.state.openFavorites} />
+                
                 <SignUpForm />
 
             </div>
