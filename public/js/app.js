@@ -71,6 +71,28 @@ class SignUpForm extends React.Component {
     }
 }
 
+class LoginForm extends React.Component {
+    render () {
+        return (
+            <div>
+                <form>
+                    <div className="form-group">
+                        <label htmlFor="logEmail">Email</label>
+                        <input id="logEmail" className="form-control" type="text" value={this.props.email} onChange={this.props.handleChange}/>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="logPass">Password</label>
+                        <input id="logPass" className="form-control" type="text" value={this.props.password} onChange={this.props.handleChange}/>
+                    </div>
+                    <div>
+                        <input onClick={this.props.handleLogin} type="submit" value="login"/>
+                    </div>
+                </form>
+            </div>
+        )
+    }
+}
+
 class CatDropdown extends React.Component {
     render () {
         return (
@@ -140,11 +162,49 @@ class Form extends React.Component {
     }
 }
 
-class AddDrink extends React.Component {
+
+class FavoritesPage extends React.Component { 
+
+    
+
+    deleteFromFavorites = (event) => {
+        console.log(event.currentTarget.id);
+        var target = event.currentTarget.id;
+        var remove = this.props.favorites.splice(target, 1);
+        this.setState({
+            favorites: remove
+        })
+    }
+
+    
 
     render () {
-        return (
-            <h1>{this.props.var}</h1>
+        return (       
+                    <div>
+                        <div>
+                            <h5>Favorites</h5>
+                        </div>
+                        <div>
+                            <div>
+                                {this.props.openFavorites &&
+                                    <div>
+                                    {
+                                    this.props.favorites.map((drinks, index) => {
+                                        return(
+                                            <li>
+                                                <div>{drinks.strDrink}</div>
+                                                <div>
+                                                <button id={index} onClick={this.deleteFromFavorites}>Remove</button>
+                                                </div>
+                                            </li>
+                                        )
+                                    })
+                                    }
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
         )
     }
 }
@@ -176,9 +236,6 @@ class DrinksList extends React.Component {
     }
 }
 
-
-
-
 class ViewDrink extends React.Component {
     render () {
         return (
@@ -195,37 +252,15 @@ class ViewDrink extends React.Component {
                         <h1 className="selectedDrinkId" >{this.props.currentDrink.strIngredient4}</h1>
                         <h1 className="selectedDrinkId" >{this.props.currentDrink.strIngredient5}</h1>
                         <h1 className="selectedDrinkId" >{this.props.currentDrink.strIngredient6}</h1>
+                        <button onClick={this.props.addingFavorites} >Add to Favorites</button>
                     </div>
         )
     }
 }
 
-
-class Header extends React.Component {  
-    render () {
+class Carousel extends React.Component {
+    render() {
         return (
-                <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                    <a className="navbar-brand" href="#">Libation Station</a>
-                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className="collapse navbar-collapse" id="navbarNav">
-                        <ul className="navbar-nav">
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a className="nav-link" data-toggle="modal" data-target="#sign-up-form-centered">Sign Up</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">Favorites</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link">Add A Drink</a> 
-                            </li>
-                        </ul>
-                    </div>
-                <div>
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                 <ol className="carousel-indicators">
                     <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
@@ -245,7 +280,7 @@ class Header extends React.Component {
                     <div className="carousel-item">
                     <img className="d-block w-100" src="https://www.lidl-recipes.ie/var/lidl-recipes/storage/images/lidl-recipes.ie/recipes/peach-passionfruit-and-mint-mojito/2861909-1-eng-IE/Peach-Passionfruit-And-Mint-Mojito_image1200x630.jpg?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&h=500"  alt="Third slide"/>
                     </div>
-                    </div>
+                </div>
                 <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                     <span className="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span className="sr-only">Previous</span>
@@ -259,24 +294,33 @@ class Header extends React.Component {
     }
 }
 
-class Header extends React.Component {
+class Header extends React.Component {      
     render () {
         return (
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <a class="navbar-brand" href="#">Libation Station</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
+                <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                    <a className="navbar-brand" href="#">Libation Station</a>
+                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Login</a>
+                    <div className="collapse navbar-collapse" id="navbarNav">
+                        <ul className="navbar-nav">
+                            <li className="nav-item">
+                                <a className="nav-link" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" onClick={() => {
+                                    this.props.changeViewMode('login');
+                                }}>Login</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Sign Up</a>
+                                <a className="nav-link" data-toggle="modal" data-target="#sign-up-form-centered">Sign Up</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Favorites</a>
+                            <li className="nav-item" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                <a className="nav-link" onClick={() => {
+                                    this.props.changeViewMode('viewFavs');
+                                }}>Favorites</a>
+                            </li>
+                            <li className="nav-item"  data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                <a className="nav-link" onClick={() => {
+                                    this.props.changeViewMode('addDrink')
+                                }}>Add A Drink</a> 
                             </li>
                         </ul>
                     </div>
@@ -285,9 +329,97 @@ class Header extends React.Component {
     }
 }
 
+class AddDrink extends React.Component {
+
+    render () {
+        return (
+                <div>
+                    <h3>Add Your Drink!</h3>
+                        <form onSubmit={this.props.addDrink}>
+                            <div className="form-group">
+                                <label htmlFor="strDrink">Name</label>
+                                <input id="strDrink" className="form-control" type="text" value={this.props.state.strDrink} onChange={this.props.handleChange}/>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="strCategory">Category</label>
+                                <input id="strCategory" className="form-control" type="text" value={this.props.state.strCategory} onChange={this.props.handleChange}/>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="strAlcoholic">Alcoholic?</label>
+                                <select id="strAlcoholic" className="form-control" type="text">
+                                    <option value="alcoholic">Yes</option>
+                                    <option valute="non-alcoholic">No</option>
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="strGlass">Glass</label>
+                                <input id="strGlass" className="form-control" type="text" value={this.props.state.strGlass} onChange={this.props.handleChange}/>
+                            </div>
+                            <div>
+                                <IngredientLister state={this.props.state} handleChange={this.props.handleChange} handleSubmit={this.props.handleSubmit}/>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="strInstructions">Instructions</label>
+                                <textarea id="strInstructions" className="form-control" type="text" value={this.props.state.strInstructions} onChange={this.props.handleChange}></textarea>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="strDrinkThumb">Image</label>
+                                <input id="strDrinkThumb" className="form-control" type="text" value={this.props.state.strDrinkThumb} onChange={this.props.handleChange}/>
+                            </div>
+                            
+                            <div>
+                                <input type="submit" value="Add"/>
+                            </div>
+                        </form>
+                </div>
+        )
+    }
+}
+
+class IngredientLister extends React.Component {
+    render () {
+        return (
+            <div>
+                <div>
+                    <div>
+                        {/* preview screen */}
+                        <ol>
+                            {this.props.state.strMeasure.map((item, index) => {
+                                return (
+                                    <li>
+                                        {item} {this.props.state.strIngredient[index]}
+                                    </li>
+                                )
+                            })}
+                        </ol>
+                    </div>
+                    <div>
+                        <form>
+                            <div>
+                                <label htmlFor="currMeasure">Measurement</label>
+                                <input id="currMeasure" type="text" value={this.props.state.currMeasure} onChange={this.props.handleChange}/>
+                            </div>
+                            <div>
+                                <label htmlFor="currIngredient">Ingredient</label>
+                                <input id="currIngredient" type="text" value={this.props.state.currIngredient} onChange={this.props.handleChange}/>
+                            </div>
+                            <div onClick={this.props.handleSubmit}>
+                                {/* <input type="submit" value="Add"/> */}
+                                ADD
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}
+
 class App extends React.Component {
 
     state ={
+        openFavorites: false,
+        favorites: [],
         viewMode: 'drinkSearch',
         currentDrink: '',
         drinkIdURL: 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=',
@@ -296,7 +428,17 @@ class App extends React.Component {
         listUrl: "https://www.thecocktaildb.com/api/json/v2/9973533/list.php?",
         catChosen: false,
         catSelect: 'notchanged',
-        catList: []
+        catList: [],
+        strDrink: '',
+        strCategory: '',
+        strAlcoholic: '',
+        strGlass: '',
+        strInstructions: '',
+        strDrinkThumb: '',
+        strIngredient: [],
+        strMeasure: [],
+        currIngredient: '',
+        currMeasure: ''
     }
 
     changeViewMode = (mode) => {
@@ -308,6 +450,15 @@ class App extends React.Component {
         .then(resp => resp.json())
         .then(json => this.setState({currentDrink: json.drinks[0]}))
         this.changeViewMode('viewDrink');
+    }
+
+    addToFavorites = () => {
+        console.log(this.state.favorites);
+        var joined = this.state.favorites.concat(this.state.currentDrink);
+        this.setState({ 
+            openFavorites: true,
+            favorites: joined 
+        })
     }
 
     handleCatSel = (event) => {
@@ -327,7 +478,7 @@ class App extends React.Component {
         }))
     }
 
-    handleSubmit = (event) => {
+    getDrinks = (event) => {
         event.preventDefault();
         let elem = document.getElementById('searchFilters');
         let selected = [...elem.options]
@@ -341,16 +492,102 @@ class App extends React.Component {
         })
     }
 
+    addIngredient = (event) => {
+        event.preventDefault();
+        this.setState({
+            strMeasure: [...this.state.strMeasure, this.state.currMeasure],
+            strIngredient: [...this.state.strIngredient, this.state.currIngredient],
+            currMeasure: '',
+            currIngredient: ''
+        }, () => {
+            console.log(this.state.strMeasure)
+        })
+
+    }
+
+    addDrink = (event) => {
+        event.preventDefault();
+        console.log('add drink ran')
+        fetch('/drinks', {
+            body: JSON.stringify({
+                strDrink: this.state.strDrink,
+                strCategory: this.state.strCategory,
+                strAlcoholic: this.state.strAlcoholic,
+                strGlass: this.state.strGlass,
+                strInstructions: this.state.strInstructions,
+                strDrinkThumb: this.state.strDrinkThumb,
+                strIngredient: this.state.strIngredient,
+                strMeasure: this.state.strMeasure,
+            }),
+            method: "POST",
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            }
+        }).then(() => console.log('data sent'))
+        .then(this.setState({
+            strDrink: '',
+                strCategory: '',
+                strAlcoholic: '',
+                strGlass: '',
+                strInstructions: '',
+                strDrinkThumb: '',
+                strIngredient: [],
+                strMeasure: [],
+                viewMode: 'drinkSearch'
+        }))
+    }
+
+    handleChange = (event) => {
+        this.setState({[event.target.id]: event.target.value})
+    }
+
+    handleLogin(event) {
+        event.preventDefault();
+        console.log("Handle Login Ran");
+        fetch("/drinks/login", {
+            body: JSON.stringify({
+                email: logEmail.value,
+                password: logPass.value
+        }),
+        method: "POST",
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        }
+        }).then(resp => resp.json())
+        .then(json1 => console.log(json1))
+        .catch(error => {
+            console.log("Login Error: ", error);
+        })
+    }
+
+    renderViewMode = () => {
+        switch(this.state.viewMode) {
+            case 'drinkSearch':
+                return <Form handleChange={this.handleCatSel} handleSubmit={this.getDrinks} state={this.state} openDrink={this.openDrink}/>;
+                break;
+            case 'viewDrink':
+                return <ViewDrink currentDrink={this.state.currentDrink} changeViewMode={this.changeViewMode} addingFavorites={this.addToFavorites}/>;
+                break;
+            case 'addDrink':
+                return <AddDrink state={this.state} handleChange={this.handleChange} handleSubmit={this.addIngredient} addDrink={this.addDrink}/>;
+                break;
+            case 'viewFavs':
+                return <FavoritesPage props={this.state.currentDrink} favorites={this.state.favorites} openFavorites={this.state.openFavorites} />;
+                break;
+            case 'login':
+                return <LoginForm state={this.state} handleChange={this.handleChange} handleLogin={this.handleLogin}/>
+                break;
+        }
+    }
+
     render(){
         return(
             <div>
                 <Carousel />
-                <Header />
-                {
-                this.state.viewMode === 'drinkSearch' ? 
-                <Form handleChange={this.handleCatSel} handleSubmit={this.handleSubmit} state={this.state} openDrink={this.openDrink}/> : 
-                this.state.viewMode === 'viewDrink' ? <ViewDrink currentDrink={this.state.currentDrink} changeViewMode={this.changeViewMode}/> : ''
-                }
+                <Header changeViewMode={this.changeViewMode}/>
+                {this.renderViewMode()}
                 <SignUpForm />
 
             </div>
