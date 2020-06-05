@@ -278,13 +278,17 @@ class Carousel extends React.Component {
                             if(index === 0) {
                                 return (
                                     <div className="carousel-item active">
-                                        <img className="d-block w-100" src={item.strDrinkThumb}/>
+                                        <img className="d-block w-100" src={item.strDrinkThumb} onClick={() => {
+                                            this.props.openDrink(item.idDrink)
+                                        }}/>
                                     </div>
                                 )
                             }
                             return (
                                 <div className="carousel-item">
-                                    <img className="d-block w-100" src={item.strDrinkThumb}/>
+                                    <img className="d-block w-100" src={item.strDrinkThumb} onClick={() => {
+                                            this.props.openDrink(item.idDrink)
+                                        }}/>
                                 </div>
                             )
                         })}
@@ -470,8 +474,9 @@ class App extends React.Component {
     openDrink = (drinkId, event) => {
         fetch(this.state.drinkIdURL + drinkId)
         .then(resp => resp.json())
-        .then(json => this.setState({currentDrink: json.drinks[0]}))
-        this.changeViewMode('viewDrink');
+        .then(json => this.setState({currentDrink: json.drinks[0]}, () => {
+            this.changeViewMode('viewDrink');
+        }))
     }
 
     addToFavorites = () => {
@@ -619,7 +624,7 @@ class App extends React.Component {
     render(){
         return(
             <div>
-                <Carousel getCarouselDrinks={this.getCarouselDrinks} carouselDrinks={this.state.carouselDrinks}/>
+                <Carousel getCarouselDrinks={this.getCarouselDrinks} carouselDrinks={this.state.carouselDrinks} openDrink={this.openDrink}/>
                 <Header changeViewMode={this.changeViewMode}/>
                 {this.renderViewMode()}
                 <SignUpForm />
