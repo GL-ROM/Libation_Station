@@ -8,6 +8,7 @@ const userSchema = Schema ({
     password: String,
     dob: String,
     loggedIn: { type:Boolean, default:false },
+    favorites: []
 },{ timestamps: true });
 
 const Users = mongoose.model('User', userSchema)

@@ -75,7 +75,7 @@ class LoginForm extends React.Component {
     render () {
         return (
             <div>
-                <form>
+                <form onSubmit={this.props.handleLogin}>
                     <div className="form-group">
                         <label htmlFor="logEmail">Email</label>
                         <input id="logEmail" className="form-control" type="text" value={this.props.email} onChange={this.props.handleChange}/>
@@ -85,7 +85,7 @@ class LoginForm extends React.Component {
                         <input id="logPass" className="form-control" type="text" value={this.props.password} onChange={this.props.handleChange}/>
                     </div>
                     <div>
-                        <input onClick={this.props.handleLogin} type="submit" value="login"/>
+                        <input type="submit" value="login"/>
                     </div>
                 </form>
             </div>
@@ -186,22 +186,18 @@ class FavoritesPage extends React.Component {
                         </div>
                         <div>
                             <div>
-                                {this.props.openFavorites &&
-                                    <div>
-                                    {
+                                {
                                     this.props.favorites.map((drinks, index) => {
                                         return(
-                                            <li>
-                                                <div>{drinks.strDrink}</div>
-                                                <div>
-                                                <button id={index} onClick={this.deleteFromFavorites}>Remove</button>
-                                                </div>
-                                            </li>
-                                        )
-                                    })
+                                                <li>
+                                                    <div>{drinks.strDrink}</div>
+                                                    <div>
+                                                        <button id={index} onClick={this.deleteFromFavorites}>Remove</button>
+                                                    </div>
+                                                </li>
+                                            )
+                                        })
                                     }
-                                    </div>
-                                }
                             </div>
                         </div>
                     </div>
@@ -254,7 +250,9 @@ class ViewDrink extends React.Component {
                         <h1 className="selectedDrinkId" >{this.props.currentDrink.strIngredient4}</h1>
                         <h1 className="selectedDrinkId" >{this.props.currentDrink.strIngredient5}</h1>
                         <h1 className="selectedDrinkId" >{this.props.currentDrink.strIngredient6}</h1>
-                        <button onClick={this.props.addingFavorites} >Add to Favorites</button>
+                        <button onClick={() => {
+                            this.props.addingFavorites(this.props.currentDrink.idDrink)
+                        }} >Add to Favorites</button>
                     </div>
         )
     }
@@ -466,7 +464,9 @@ class App extends React.Component {
         currIngredient: '',
         currMeasure: '',
         carouselDrinks: [],
-        randomDrinksUrl: "https://www.thecocktaildb.com/api/json/v2/9973533/randomselection.php"
+        randomDrinksUrl: "https://www.thecocktaildb.com/api/json/v2/9973533/randomselection.php",
+        currUserID: '',
+        userActive: false
     }
 
     changeViewMode = (mode) => {
@@ -482,11 +482,19 @@ class App extends React.Component {
     }
 
     addToFavorites = () => {
-        console.log(this.state.favorites);
-        var joined = this.state.favorites.concat(this.state.currentDrink);
-        this.setState({ 
-            openFavorites: true,
-            favorites: joined 
+        fetch(`/drinks/${this.state.currUserID}`, {
+            body: JSON.stringify(this.state.currentDrink),
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(resp => resp.json())
+        .then(json => {
+            this.setState({
+                favorites: [...this.state.favorites, this.state.currentDrink]
+            }, () => {console.log('woohoo', this.state.favorites)})
         })
     }
 
@@ -571,7 +579,7 @@ class App extends React.Component {
         this.setState({[event.target.id]: event.target.value})
     }
 
-    handleLogin(event) {
+    handleLogin = (event) => {
         event.preventDefault();
         console.log("Handle Login Ran");
         console.log(logEmail.value);
@@ -587,7 +595,15 @@ class App extends React.Component {
             'Content-Type': 'application/json'
         }
         }).then(resp => resp.json())
-        .then(json1 => console.log(json1))
+        .then((json1) => {
+            console.log('this', json1)
+            this.setState({
+                userActive: true,
+                currUserID: json1._id,
+                viewMode: 'drinkSearch',
+                favorites: json1.favorites
+            })
+        })
         .catch(error => {
             console.log("Login Error: ", error);
         })
@@ -618,7 +634,7 @@ class App extends React.Component {
                 return <FavoritesPage props={this.state.currentDrink} favorites={this.state.favorites} openFavorites={this.state.openFavorites} />;
                 break;
             case 'login':
-                return <LoginForm state={this.state} handleChange={this.handleChange} handleLogin={this.handleLogin}/>
+                return <LoginForm state={this.state} handleChange={this.handleChange} handleLogin={this.handleLogin} changeViewMode={this.changeViewMode}/>
                 break;
         }
     }
