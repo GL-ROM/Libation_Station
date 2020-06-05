@@ -97,14 +97,14 @@ class CatDropdown extends React.Component {
     render () {
         return (
                 <form>
-                    <div className="container">
-                    <label for="catSelect">Search Category:</label>
-                    <select name="catSelect" id="catSelect" onChange={this.props.handleChange}>
-                        <option>--Select One--</option>
-                        <option value="i">Ingredient</option>
-                        <option value="c">Drink Category</option>
-                        <option value="g">Glass Type</option>
-                    </select>
+                    <div className="form-group">
+                        <label for="catSelect">Search Category:</label>
+                        <select name="catSelect" id="catSelect" onChange={this.props.handleChange} className="form-control">
+                            <option>--Select One--</option>
+                            <option value="i">Ingredient</option>
+                            <option value="c">Drink Category</option>
+                            <option value="g">Glass Type</option>
+                        </select>
                     </div>
                 </form>
         )
@@ -117,9 +117,9 @@ class CatList extends React.Component {
         return (
                 <div>
                     <form onSubmit={this.props.handleSubmit}>
-                        <div>
+                        <div className="form-group">
                             {this.props.catSelect === 'i' ? 
-                                <select id="searchFilters" multiple>
+                                <select id="searchFilters" className="form-control" multiple>
                                     {this.props.catList.map((item) => {
                                     for(let x in item) {
                                         return (
@@ -129,7 +129,7 @@ class CatList extends React.Component {
                                 })}
                                 </select> 
                                 :
-                                <select id="searchFilters">
+                                <select id="searchFilters" className="form-control">
                                     {this.props.catList.map((item) => {
                                     for(let x in item) {
                                         return (
@@ -163,21 +163,7 @@ class Form extends React.Component {
 }
 
 
-class FavoritesPage extends React.Component { 
-
-    
-
-    deleteFromFavorites = (event) => {
-        console.log(event.currentTarget.id);
-        var target = event.currentTarget.id;
-        var remove = this.props.favorites.splice(target, 1);
-        this.setState({
-            favorites: remove
-        })
-    }
-
-    
-
+class FavoritesPage extends React.Component {   
     render () {
         return (       
                     <div>
@@ -497,6 +483,8 @@ class App extends React.Component {
             }, () => {console.log('woohoo', this.state.favorites)})
         })
     }
+
+
 
     handleCatSel = (event) => {
         this.setState({catChosen: true})
