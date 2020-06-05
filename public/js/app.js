@@ -78,14 +78,14 @@ class LoginForm extends React.Component {
                 <form>
                     <div className="form-group">
                         <label htmlFor="logEmail">Email</label>
-                        <input id="logEmail" className="form-control" type="text" value={this.props.state.logEmail} onChange={this.props.handleChange}/>
+                        <input id="logEmail" className="form-control" type="text" value={this.props.email} onChange={this.props.handleChange}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="logPass">Password</label>
-                        <input id="logPass" className="form-control" type="text" value={this.props.state.logPass} onChange={this.props.handleChange}/>
+                        <input id="logPass" className="form-control" type="text" value={this.props.password} onChange={this.props.handleChange}/>
                     </div>
                     <div>
-                        <input type="submit" value="login"/>
+                        <input onClick={this.props.handleLogin} type="submit" value="login"/>
                     </div>
                 </form>
             </div>
@@ -547,6 +547,29 @@ class App extends React.Component {
         this.setState({[event.target.id]: event.target.value})
     }
 
+    handleLogin(event) {
+        event.preventDefault();
+        console.log("Handle Login Ran");
+        console.log(logEmail.value);
+        console.log(logPass.value);
+        fetch("/drinks/login", {
+            body: JSON.stringify({
+                email: logEmail.value,
+                password: logPass.value
+        }),
+        method: "POST",
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        }
+        }).then(response => {
+            console.log(response);
+        })
+        .catch(error => {
+            console.log("Login Error: ", error);
+        })
+    }
+
     renderViewMode = () => {
         switch(this.state.viewMode) {
             case 'drinkSearch':
@@ -557,6 +580,9 @@ class App extends React.Component {
                 break;
             case 'addDrink':
                 return <AddDrink state={this.state} handleChange={this.handleChange} handleSubmit={this.addIngredient} addDrink={this.addDrink}/>;
+                break;
+            case 'login':
+                return <LoginForm state={this.state} handleChange={this.handleChange} handleLogin={this.handleLogin}/>
                 break;
         }
     }
