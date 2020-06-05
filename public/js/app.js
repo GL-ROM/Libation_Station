@@ -196,25 +196,23 @@ class DrinksList extends React.Component {
     render () {
         return (
             <div className="container">
-                <div className="row">
-                <div className="col-md-8">
                     {this.props.drinks.map((item) => {
                         return (
-                            <div className="card mb-4">
-                                <div id={item.idDrink} onClick={() => {
-                                            this.props.openDrink(item.idDrink)
+                            <div className="row no-gutters" onClick={() => {
+                                    this.props.openDrink(item.idDrink)
                                         }
                                     }>
-                                        <div className="card-body">
-                                        <h3 className="card-title">{item.strDrink}</h3>
-                                        <img className="card-img-top img-fluid rounded" src={`${item.strDrinkThumb}/preview`} alt="Card image cap"/>
-                                        </div>
+                                <div className="col-sm-4">
+                                    <img className="card-img img-fluid rounded" src={`${item.strDrinkThumb}/preview`} alt="Card image cap"/>
                                 </div>
-                            </div>                            
+                                <div className="col-sm-8">
+                                    <div className="card-body">
+                                        <h3 className="card-title">{item.strDrink}</h3>
+                                    </div>
+                                </div>                            
+                            </div>
                         )
                     })}
-                </div>
-                </div>
             </div>
         )
     }
