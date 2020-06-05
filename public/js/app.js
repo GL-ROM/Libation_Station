@@ -294,7 +294,7 @@ class Carousel extends React.Component {
     }
 }
 
-class Header extends React.Component {  
+class Header extends React.Component {      
     render () {
         return (
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -305,19 +305,19 @@ class Header extends React.Component {
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <a className="nav-link" href="#" onClick={() => {
-                                    this.props.changeViewMode('login')
+                                <a className="nav-link" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" onClick={() => {
+                                    this.props.changeViewMode('login');
                                 }}>Login</a>
                             </li>
                             <li class="nav-item">
                                 <a className="nav-link" data-toggle="modal" data-target="#sign-up-form-centered">Sign Up</a>
                             </li>
-                            <li className="nav-item">
+                            <li className="nav-item" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                                 <a className="nav-link" onClick={() => {
                                     this.props.changeViewMode('viewFavs');
                                 }}>Favorites</a>
                             </li>
-                            <li className="nav-item">
+                            <li className="nav-item"  data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                                 <a className="nav-link" onClick={() => {
                                     this.props.changeViewMode('addDrink')
                                 }}>Add A Drink</a> 
@@ -545,8 +545,6 @@ class App extends React.Component {
     handleLogin(event) {
         event.preventDefault();
         console.log("Handle Login Ran");
-        console.log(logEmail.value);
-        console.log(logPass.value);
         fetch("/drinks/login", {
             body: JSON.stringify({
                 email: logEmail.value,
