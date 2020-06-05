@@ -329,19 +329,19 @@ class Header extends React.Component {
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <a className="nav-link" href="#" onClick={() => {
+                                <a className="nav-link" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" onClick={() => {
                                     this.props.changeViewMode('login')
                                 }}>Login</a>
                             </li>
                             <li class="nav-item">
                                 <a className="nav-link" data-toggle="modal" data-target="#sign-up-form-centered">Sign Up</a>
                             </li>
-                            <li className="nav-item">
+                            <li className="nav-item" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                                 <a className="nav-link" onClick={() => {
                                     this.props.changeViewMode('viewFavs');
                                 }}>Favorites</a>
                             </li>
-                            <li className="nav-item">
+                            <li className="nav-item" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                                 <a className="nav-link" onClick={() => {
                                     this.props.changeViewMode('addDrink')
                                 }}>Add A Drink</a> 
