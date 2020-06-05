@@ -96,8 +96,8 @@ class LoginForm extends React.Component {
 class CatDropdown extends React.Component {
     render () {
         return (
-            <div>
                 <form>
+                    <div className="container">
                     <label for="catSelect">Search Category:</label>
                     <select name="catSelect" id="catSelect" onChange={this.props.handleChange}>
                         <option>--Select One--</option>
@@ -105,8 +105,8 @@ class CatDropdown extends React.Component {
                         <option value="c">Drink Category</option>
                         <option value="g">Glass Type</option>
                     </select>
+                    </div>
                 </form>
-            </div>
         )
     }
 }
@@ -213,24 +213,26 @@ class DrinksList extends React.Component {
 
     render () {
         return (
-            <div>
-                <ul>
+            <div className="container">
+                <div className="row">
+                <div className="col-md-8">
                     {this.props.drinks.map((item) => {
                         return (
-                            <div>
+                            <div className="card mb-4">
                                 <div id={item.idDrink} onClick={() => {
                                             this.props.openDrink(item.idDrink)
                                         }
                                     }>
-                                    <li>
-                                        <img src={`${item.strDrinkThumb}/preview`}/>
-                                        <h4>{item.strDrink}</h4>
-                                    </li>
+                                        <div className="card-body">
+                                        <h3 className="card-title">{item.strDrink}</h3>
+                                        <img className="card-img-top img-fluid rounded" src={`${item.strDrinkThumb}/preview`} alt="Card image cap"/>
+                                        </div>
                                 </div>
                             </div>                            
                         )
                     })}
-                </ul>
+                </div>
+                </div>
             </div>
         )
     }
