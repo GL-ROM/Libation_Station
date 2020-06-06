@@ -320,7 +320,7 @@ class Header extends React.Component {
                         <ul className="navbar-nav">
                             <li className="nav-item">
                                 <a className="nav-link" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" onClick={() => {
-                                    this.props.changeViewMode('login')
+                                    this.props.state.userActive ? this.props.logout() : this.props.changeViewMode('login')
                                 }}>{this.props.state.userActive ? 'Logout' : 'Login'}</a>
                             </li>
                             <li class="nav-item">
@@ -643,6 +643,15 @@ class App extends React.Component {
         })
     }
 
+    logout = () => {
+        this.setState({
+            currUserID: '',
+            favorites: [],
+            viewMode: 'drinkSearch',
+            userActive: false
+        })
+    }
+
     getCarouselDrinks = () => {
         fetch(this.state.randomDrinksUrl)
         .then(resp => resp.json())
@@ -680,7 +689,7 @@ class App extends React.Component {
         return(
             <div>
                 <Carousel getCarouselDrinks={this.getCarouselDrinks} carouselDrinks={this.state.carouselDrinks} openDrink={this.openDrink}/>
-                <Header changeViewMode={this.changeViewMode} state={this.state}/>
+                <Header changeViewMode={this.changeViewMode} state={this.state} logout={this.logout}/>
                 {this.renderViewMode()}
                 <SignUpForm />
 
