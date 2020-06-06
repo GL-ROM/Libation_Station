@@ -572,6 +572,7 @@ class App extends React.Component {
                 strDrinkThumb: this.state.strDrinkThumb,
                 strIngredient: this.state.strIngredient,
                 strMeasure: this.state.strMeasure,
+                creator: this.state.currUserID
             }),
             method: "POST",
             headers: {
