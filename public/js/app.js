@@ -308,7 +308,9 @@ class Header extends React.Component {
     render () {
         return (
                 <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                    <a className="navbar-brand" href="#"><h3>Libation Station</h3></a>
+                    <a className="navbar-brand" href="#" onClick={() => {
+                        this.props.changeViewMode('drinkSearch')
+                    }}><h3>Libation Station</h3></a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
@@ -461,6 +463,7 @@ class App extends React.Component {
     }
 
     openDrink = (drinkId, event) => {
+        
         fetch(this.state.drinkIdURL + drinkId)
         .then(resp => resp.json())
         .then(json => this.setState({currentDrink: json.drinks[0]}, () => {

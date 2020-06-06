@@ -39,7 +39,7 @@ const drinkSchema = new mongoose.Schema({
     strMeasure14: { type: String, required: false },
     strMeasure15: { type: String, required: false },
     ingredientsArray: [],
-    userCreated: true,
+    userCreated: {type: Boolean, default: true},
     creator: String
 });
 
