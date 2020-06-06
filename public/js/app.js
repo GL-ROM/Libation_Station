@@ -177,7 +177,9 @@ class FavoritesPage extends React.Component {
                                                 <li>
                                                     <div>{drinks.strDrink}</div>
                                                     <div>
-                                                        <button id={index} onClick={this.deleteFromFavorites}>Remove</button>
+                                                        <button id={index} onClick={() => {
+                                                            this.props.removeFavorite(index);
+                                                        }}>Remove</button>
                                                     </div>
                                                 </li>
                                             )
@@ -282,18 +284,6 @@ class Carousel extends React.Component {
                                 </div>
                             )
                         })}
-                        {/* <div className="carousel-item active">
-                            <img className="d-block w-100" src="https://www.tasteofhome.com/wp-content/uploads/2018/01/Passion-Fruit-Hurricanes_EXPS_JMZ18_37571_C03_14_8b-1.jpg?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&h=500"  alt="First slide"/>
-                        </div>
-                        <div className="carousel-item">
-                            <img className="d-block w-100" src="https://www.lidl-recipes.ie/var/lidl-recipes/storage/images/lidl-recipes.ie/recipes/peach-passionfruit-and-mint-mojito/2861909-1-eng-IE/Peach-Passionfruit-And-Mint-Mojito_image1200x630.jpg?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&h=500"  alt="Second slide"/>
-                        </div>
-                        <div className="carousel-item">
-                            <img className="d-block w-100" src="https://i2.wp.com/theshortordercook.com/wp-content/uploads/2020/05/thumbnail_IMG_7171.jpg?resize=1200%2C550&ssl=1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&h=500"  alt="Third slide"/>
-                        </div>
-                        <div className="carousel-item">
-                            <img className="d-block w-100" src="https://www.lidl-recipes.ie/var/lidl-recipes/storage/images/lidl-recipes.ie/recipes/peach-passionfruit-and-mint-mojito/2861909-1-eng-IE/Peach-Passionfruit-And-Mint-Mojito_image1200x630.jpg?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&h=500"  alt="Third slide"/>
-                        </div> */}
                     </div>
                     <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                         <span className="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -489,6 +479,25 @@ class App extends React.Component {
         })
     }
 
+    removeFavorite = (index) => {
+        fetch(`/drinks/${this.state.currUserID}/delete`, {
+            body: JSON.stringify(this.state.currentDrink.idDrink),
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then((resp) => {
+            this.setState({
+                favorites: [
+                    ...this.state.favorites.slice(0, index),
+                    ...this.state.favorites.slice(index + 1)
+                ]
+            })
+        }) 
+    }
+
 
 
     handleCatSel = (event) => {
@@ -624,7 +633,7 @@ class App extends React.Component {
                 return <AddDrink state={this.state} handleChange={this.handleChange} handleSubmit={this.addIngredient} addDrink={this.addDrink}/>;
                 break;
             case 'viewFavs':
-                return <FavoritesPage props={this.state.currentDrink} favorites={this.state.favorites} openFavorites={this.state.openFavorites} />;
+                return <FavoritesPage props={this.state.currentDrink} favorites={this.state.favorites} openFavorites={this.state.openFavorites} removeFavorite={this.removeFavorite}/>;
                 break;
             case 'login':
                 return <LoginForm state={this.state} handleChange={this.handleChange} handleLogin={this.handleLogin} changeViewMode={this.changeViewMode}/>

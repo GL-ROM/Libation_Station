@@ -61,13 +61,19 @@ router.post('/login', (req, res) => {
 })
 
 //adding to favorites
-router.put('/:userID', (req, res) => {
-    console.log('userID', req.params.userID)
-    console.log('req.body-=-', req.body)
-    Users.findByIdAndUpdate(req.params.userID, {$push: {favorites: req.body}}, (err, data) => {
-        console.log('---', data)
-        res.json(data)
-    })
+router.put('/:userID/:action', (req, res) => {
+    if(req.params.action === 'add') {
+        console.log('userID', req.params.userID)
+        console.log('req.body-=-', req.body)
+        Users.findByIdAndUpdate(req.params.userID, {$push: {favorites: req.body}}, (err, data) => {
+            console.log('---', data)
+            res.json(data)
+        })
+    } else {
+        Users.findByIdAndUpdate(req.params.userID, {$pull: {favorites: req.body}}, (err, data) => {
+            res.json(data)
+        })
+    }
 })
 
 module.exports = router;
