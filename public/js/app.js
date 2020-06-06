@@ -204,7 +204,7 @@ class DrinksList extends React.Component {
                         {this.props.drinks.map((item) => {
                             return (
                                 <div className="row no-gutters" onClick={() => {
-                                        this.props.openDrink(item.idDrink)
+                                        this.props.openDrink(item.idDrink, item)
                                             }
                                         }>
                                     <div className="col-sm-4">
@@ -231,7 +231,7 @@ class ViewDrink extends React.Component {
                         <div className="row"> 
                             <div className="col-lg-8">
                                 <div className="backButtonDiv">
-                                    <button className="backButton btn btn-primary" onClick={() => {this.props.changeViewMode('drinkSearch')}}>Back</button>
+                                    <button className="backButton btn btn-primary" onClick={() => {this.props.changeViewMode('viewList')}}>Back</button>
                                 </div>
                                 <h1 className="mt-4" className="selectedDrinkId" >Drink: {this.props.currentDrink.strDrink}</h1>
                                 <div className="currentDrinkImageDiv">
@@ -462,8 +462,10 @@ class App extends React.Component {
         this.setState({viewMode: mode})
     }
 
-    openDrink = (drinkId, event) => {
-        
+    openDrink = (drinkId, drink, event) => {
+        if(drink.userCreated) {
+            this.setState({currentDrink: drink, viewMode: 'viewDrink'})
+        }
         fetch(this.state.drinkIdURL + drinkId)
         .then(resp => resp.json())
         .then(json => this.setState({currentDrink: json.drinks[0]}, () => {
