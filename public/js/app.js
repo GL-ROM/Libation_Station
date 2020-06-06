@@ -618,36 +618,40 @@ class App extends React.Component {
     addDrink = (event) => {
         event.preventDefault();
         console.log('add drink ran')
-        fetch('/drinks', {
-            body: JSON.stringify({
-                strDrink: this.state.strDrink,
-                strCategory: this.state.strCategory,
-                strAlcoholic: this.state.strAlcoholic,
-                strGlass: this.state.strGlass,
-                strInstructions: this.state.strInstructions,
-                strDrinkThumb: this.state.strDrinkThumb,
-                strIngredient: this.state.strIngredient,
-                strMeasure: this.state.strMeasure,
-                creator: this.state.currUserID
-            }),
-            method: "POST",
-            headers: {
-                'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json'
-            }
-        }).then(() => console.log('data sent'))
-        .then(this.setState({
-            strDrink: '',
-                strCategory: '',
-                strAlcoholic: '',
-                strGlass: '',
-                strInstructions: '',
-                strDrinkThumb: '',
-                strIngredient: [],
-                strMeasure: [],
-                viewMode: 'drinkSearch'
-        }))
-    }
+        if(this.state.strDrinkThumb === '') {
+            this.setState({strDrinkThumb: "./css/img/kindpng_800934.png"}, () => {
+                fetch('/drinks', {
+                    body: JSON.stringify({
+                        strDrink: this.state.strDrink,
+                        strCategory: this.state.strCategory,
+                        strAlcoholic: this.state.strAlcoholic,
+                        strGlass: this.state.strGlass,
+                        strInstructions: this.state.strInstructions,
+                        strDrinkThumb: this.state.strDrinkThumb,
+                        strIngredient: this.state.strIngredient,
+                        strMeasure: this.state.strMeasure,
+                        creator: this.state.currUserID
+                    }),
+                    method: "POST",
+                    headers: {
+                        'Accept': 'application/json, text/plain, */*',
+                        'Content-Type': 'application/json'
+                    }
+                }).then(() => console.log('data sent'))
+                .then(this.setState({
+                    strDrink: '',
+                        strCategory: '',
+                        strAlcoholic: '',
+                        strGlass: '',
+                        strInstructions: '',
+                        strDrinkThumb: '',
+                        strIngredient: [],
+                        strMeasure: [],
+                        viewMode: 'drinkSearch'
+                }))
+            })
+        }
+        }
 
     handleChange = (event) => {
         this.setState({[event.target.id]: event.target.value})
