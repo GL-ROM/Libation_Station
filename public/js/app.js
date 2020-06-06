@@ -156,7 +156,6 @@ class Form extends React.Component {
                 <CatDropdown handleChange={this.props.handleChange}/>
                 {/* <Test var={this.state.catSelect}/> */}
                 {this.props.state.catChosen === true && <CatList catList={this.props.state.catList} catSelect={this.props.state.catSelect} handleSubmit={this.props.handleSubmit}/>}
-                {this.props.state.drinks && <DrinksList drinks={this.props.state.drinks} openDrink={this.props.openDrink}/>}
             </div>
         )
     }
@@ -195,24 +194,27 @@ class DrinksList extends React.Component {
 
     render () {
         return (
-            <div className="container">
-                    {this.props.drinks.map((item) => {
-                        return (
-                            <div className="row no-gutters" onClick={() => {
-                                    this.props.openDrink(item.idDrink)
-                                        }
-                                    }>
-                                <div className="col-sm-4">
-                                    <img className="card-img img-fluid rounded" src={`${item.strDrinkThumb}/preview`} alt="Card image cap"/>
-                                </div>
-                                <div className="col-sm-8">
-                                    <div className="card-body">
-                                        <h3 className="card-title">{item.strDrink}</h3>
+            <div>
+                <button onClick={() => {this.props.changeViewMode('drinkSearch')}}>New Search</button>
+                <div className="container overflow-auto" id="drinkslist-cont">
+                        {this.props.drinks.map((item) => {
+                            return (
+                                <div className="row no-gutters" onClick={() => {
+                                        this.props.openDrink(item.idDrink)
+                                            }
+                                        }>
+                                    <div className="col-sm-4">
+                                        <img className="card-img img-fluid rounded" src={`${item.strDrinkThumb}`} alt="Card image cap"/>
                                     </div>
-                                </div>                            
-                            </div>
-                        )
-                    })}
+                                    <div className="col-sm-8">
+                                        <div className="card-body">
+                                            <h3 className="card-title">{item.strDrink}</h3>
+                                        </div>
+                                    </div>                            
+                                </div>
+                            )
+                        })}
+                </div>
             </div>
         )
     }
@@ -450,7 +452,8 @@ class App extends React.Component {
         carouselDrinks: [],
         randomDrinksUrl: "https://www.thecocktaildb.com/api/json/v2/9973533/randomselection.php",
         currUserID: '',
-        userActive: false
+        userActive: false,
+        drinks: []
     }
 
     changeViewMode = (mode) => {
@@ -511,7 +514,7 @@ class App extends React.Component {
             let filterStr = this.state.searchFilters.toString();
             fetch(this.state.filterUrl + this.state.catSelect + '=' + filterStr)
                 .then(resp => resp.json())
-                .then(json => this.setState({drinks: json.drinks}))
+                .then(json => this.setState({drinks: json.drinks, viewMode: 'viewList'}))
         })
     }
 
@@ -621,6 +624,9 @@ class App extends React.Component {
                 break;
             case 'login':
                 return <LoginForm state={this.state} handleChange={this.handleChange} handleLogin={this.handleLogin} changeViewMode={this.changeViewMode}/>
+                break;
+            case 'viewList':
+                return <DrinksList drinks={this.state.drinks} openDrink={this.openDrink} changeViewMode={this.changeViewMode}/>;
                 break;
         }
     }
