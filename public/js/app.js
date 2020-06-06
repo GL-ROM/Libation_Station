@@ -473,7 +473,7 @@ class App extends React.Component {
     }
 
     addToFavorites = () => {
-        fetch(`/drinks/${this.state.currUserID}`, {
+        fetch(`/drinks/${this.state.currUserID}/add`, {
             body: JSON.stringify(this.state.currentDrink),
             method: 'PUT',
             headers: {
