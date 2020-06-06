@@ -169,7 +169,7 @@ class FavoritesPage extends React.Component {
         return (       
                     <div className="container">
                         <div>
-                            <h3>Favorites</h3>
+                            <h3>My Drinks</h3>
                         </div>
                         <div>
                             <div>
@@ -320,22 +320,27 @@ class Header extends React.Component {
                         <ul className="navbar-nav">
                             <li className="nav-item">
                                 <a className="nav-link" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" onClick={() => {
-                                    this.props.changeViewMode('login')
-                                }}>Login</a>
+                                    this.props.state.userActive ? this.props.logout() : this.props.changeViewMode('login')
+                                }}>{this.props.state.userActive ? 'Logout' : 'Login'}</a>
                             </li>
                             <li class="nav-item">
                                 <a className="nav-link" data-toggle="modal" data-target="#sign-up-form-centered">Sign Up</a>
                             </li>
-                            <li className="nav-item" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                                <a className="nav-link" onClick={() => {
-                                    this.props.changeViewMode('viewFavs');
-                                }}>Favorites</a>
-                            </li>
-                            <li className="nav-item" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                                <a className="nav-link" onClick={() => {
-                                    this.props.changeViewMode('addDrink')
-                                }}>Add A Drink</a> 
-                            </li>
+                            {this.props.state.userActive &&
+                                <div>
+                                    <li className="nav-item" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                                        <a className="nav-link" onClick={() => {
+                                        this.props.changeViewMode('viewFavs');
+                                        }}>My Drinks</a>
+                                    </li>
+                                    <li className="nav-item" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                                    <a className="nav-link" onClick={() => {
+                                        this.props.changeViewMode('addDrink')
+                                    }}>Add A Drink</a> 
+                                </li>
+                                </div>
+                            }
+                            
                         </ul>
                     </div>
                 </nav>   
@@ -638,6 +643,15 @@ class App extends React.Component {
         })
     }
 
+    logout = () => {
+        this.setState({
+            currUserID: '',
+            favorites: [],
+            viewMode: 'drinkSearch',
+            userActive: false
+        })
+    }
+
     getCarouselDrinks = () => {
         fetch(this.state.randomDrinksUrl)
         .then(resp => resp.json())
@@ -675,7 +689,7 @@ class App extends React.Component {
         return(
             <div>
                 <Carousel getCarouselDrinks={this.getCarouselDrinks} carouselDrinks={this.state.carouselDrinks} openDrink={this.openDrink}/>
-                <Header changeViewMode={this.changeViewMode}/>
+                <Header changeViewMode={this.changeViewMode} state={this.state} logout={this.logout}/>
                 {this.renderViewMode()}
                 <SignUpForm />
 
