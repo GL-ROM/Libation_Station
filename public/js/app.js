@@ -82,7 +82,7 @@ class LoginForm extends React.Component {
                     </div>
                     <div className="form-group">
                         <label htmlFor="logPass">Password</label>
-                        <input id="logPass" className="form-control" type="text" value={this.props.password} onChange={this.props.handleChange}/>
+                        <input id="logPass" type="password" className="form-control" type="text" value={this.props.password} onChange={this.props.handleChange}/>
                     </div>
                     <div>
                         <input className="btn btn-primary" type="submit" value="Login"/>
@@ -154,7 +154,7 @@ class Form extends React.Component {
 
     render () {
         return (
-            <div className="container">
+            <div className="container pt-3">
                 <CatDropdown handleChange={this.props.handleChange}/>
                 {/* <Test var={this.state.catSelect}/> */}
                 {this.props.state.catChosen === true && <CatList catList={this.props.state.catList} catSelect={this.props.state.catSelect} handleSubmit={this.props.handleSubmit}/>}
@@ -176,7 +176,10 @@ class FavoritesPage extends React.Component {
                                     this.props.favorites.map((drinks, index) => {
                                         return(
                                                 <div className="card mb-4">
-                                                    <div className="row no-gutters">
+                                                    <div className="row no-gutters" onClick={() => {
+                                        this.props.openDrink(drinks.idDrink, drinks)
+                                            }
+                                        }>
                                                         <div className="col-sm-4">
                                                             <img className="card-img img-fluid rounded" src={drinks.strDrinkThumb}/>
                                                         </div>
@@ -686,7 +689,7 @@ class App extends React.Component {
                 return <AddDrink state={this.state} handleChange={this.handleChange} handleSubmit={this.addIngredient} addDrink={this.addDrink}/>;
                 break;
             case 'viewFavs':
-                return <FavoritesPage props={this.state.currentDrink} favorites={this.state.favorites} openFavorites={this.state.openFavorites} removeFavorite={this.removeFavorite}/>;
+                return <FavoritesPage props={this.state.currentDrink} favorites={this.state.favorites} openFavorites={this.state.openFavorites} removeFavorite={this.removeFavorite} openDrink={this.openDrink}/>;
                 break;
             case 'login':
                 return <LoginForm state={this.state} handleChange={this.handleChange} handleLogin={this.handleLogin} changeViewMode={this.changeViewMode}/>
