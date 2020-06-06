@@ -140,7 +140,7 @@ class CatList extends React.Component {
                                 </select>}
                         </div>
                         <div>
-                            <input type="submit" value="Lets Drink!"/>
+                            <input className="btn btn-primary" type="submit" value="Lets Drink!"/>
                         </div>
                     </form>
                 </div>
@@ -221,22 +221,26 @@ class DrinksList extends React.Component {
 class ViewDrink extends React.Component {
     render () {
         return (
-                    <div>
-                        <button onClick={() => {this.props.changeViewMode('drinkSearch')}}>Back</button>
-                        <h1 className="selectedDrinkId" >Drink: {this.props.currentDrink.strDrink}</h1>
+                    <div className="container">
+                        <div className="row"> 
+                        <div className="col-lg-8">
+                        <button className="btn btn-primary" onClick={() => {this.props.changeViewMode('drinkSearch')}}>Back</button>
+                        <h1 className="mt-4" className="selectedDrinkId" >Drink: {this.props.currentDrink.strDrink}</h1>
                         <div className="currentDrinkImageDiv">
-                            <img className="currentDrinkImage" src={this.props.currentDrink.strDrinkThumb}></img>
+                            <img className="img-fluid rounded" className="currentDrinkImage" src={this.props.currentDrink.strDrinkThumb}></img>
                         </div>
-                        <h1 className="selectedDrinkId" >Category: {this.props.currentDrink.strCategory}</h1>
-                        <h1 className="selectedDrinkId" >Ingredients: {this.props.currentDrink.strIngredient1}</h1>
-                        <h1 className="selectedDrinkId" >{this.props.currentDrink.strIngredient2}</h1>
-                        <h1 className="selectedDrinkId" >{this.props.currentDrink.strIngredient3}</h1>
-                        <h1 className="selectedDrinkId" >{this.props.currentDrink.strIngredient4}</h1>
-                        <h1 className="selectedDrinkId" >{this.props.currentDrink.strIngredient5}</h1>
-                        <h1 className="selectedDrinkId" >{this.props.currentDrink.strIngredient6}</h1>
-                        <button onClick={() => {
+                        <h4 className="lead text-justify" className="selectedDrinkId" >Category: {this.props.currentDrink.strCategory}</h4>
+                        <h4 className="lead text-justify" className="selectedDrinkId" >Ingredients: {this.props.currentDrink.strIngredient1}</h4>
+                        <h4 className="selectedDrinkId" >{this.props.currentDrink.strIngredient2}</h4>
+                        <h4 className="selectedDrinkId" >{this.props.currentDrink.strIngredient3}</h4>
+                        <h4 className="selectedDrinkId" >{this.props.currentDrink.strIngredient4}</h4>
+                        <h4 className="selectedDrinkId" >{this.props.currentDrink.strIngredient5}</h4>
+                        <h4 className="selectedDrinkId" >{this.props.currentDrink.strIngredient6}</h4>
+                        <button className="btn btn-primary" onClick={() => {
                             this.props.addingFavorites(this.props.currentDrink.idDrink)
                         }} >Add to Favorites</button>
+                        </div>
+                        </div>
                     </div>
         )
     }
