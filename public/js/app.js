@@ -452,17 +452,17 @@ class IngredientLister extends React.Component {
                     </div>
                     <div>
                         <form>
-                            <div>
+                            <div className="form-group">
                                 <label htmlFor="currMeasure">Measurement</label>
-                                <input id="currMeasure" type="text" value={this.props.state.currMeasure} onChange={this.props.handleChange}/>
+                                <input className="form-control" id="currMeasure" type="text" value={this.props.state.currMeasure} onChange={this.props.handleChange}/>
                             </div>
-                            <div>
+                            <div className="form-group">
                                 <label htmlFor="currIngredient">Ingredient</label>
-                                <input id="currIngredient" type="text" value={this.props.state.currIngredient} onChange={this.props.handleChange}/>
+                                <input className="form-control" id="currIngredient" type="text" value={this.props.state.currIngredient} onChange={this.props.handleChange}/>
                             </div>
-                            <div onClick={this.props.handleSubmit}>
+                            <div onClick={this.props.handleSubmit} className="btn btn-outline-secondary">
                                 {/* <input type="submit" value="Add"/> */}
-                                ADD
+                                ADD Ingredient
                             </div>
                         </form>
                     </div>
