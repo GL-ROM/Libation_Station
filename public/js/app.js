@@ -171,25 +171,30 @@ class FavoritesPage extends React.Component {
                         <div>
                             <h3>My Drinks</h3>
                         </div>
-                        <div>
-                            <div>
+                            <div className="container over-flow-auto mt-3 vDrink">
                                 {
                                     this.props.favorites.map((drinks, index) => {
                                         return(
-                                                <li>
-                                                    <div>{drinks.strDrink}</div>
-                                                    <div>
-                                                        <button className="btn btn-primary" id={index} onClick={() => {
-                                                            this.props.removeFavorite(index);
-                                                        }}>Remove</button>
+                                                <div className="card mb-4">
+                                                    <div className="row no-gutters">
+                                                        <div className="col-sm-4">
+                                                            <img className="card-img img-fluid rounded" src={drinks.strDrinkThumb}/>
+                                                        </div>
                                                     </div>
-                                                </li>
+                                                    <div className="col-sm-8">
+                                                        <div className="card-body">
+                                                            <h3>{drinks.strDrink}</h3>
+                                                        </div>
+                                                    </div>
+                                                    <button className="btn btn-primary" id={index} onClick={() => {
+                                                        this.props.removeFavorite(index);
+                                                    }}>Remove</button>
+                                                </div>
                                             )
                                         })
                                     }
                             </div>
                         </div>
-                    </div>
         )
     }
 }
@@ -198,9 +203,9 @@ class DrinksList extends React.Component {
 
     render () {
         return (
-            <div className="container">
+            <div className="container mt-3">
                 <button className="btn btn-primary" onClick={() => {this.props.changeViewMode('drinkSearch')}}>New Search</button>
-                <div className="container overflow-auto" id="drinkslist-cont">
+                <div className="container overflow-auto mt-3" id="drinkslist-cont">
                         {this.props.drinks.map((item) => {
                             return (
                                 <div className="card mb-4">
@@ -227,25 +232,28 @@ class DrinksList extends React.Component {
 }
 
 class ViewDrink extends React.Component {
+
     render () {
         return (
-                    <div className="container">
+                    <div className="vdrink mt-3 p-2">
                         <div className="row"> 
-                            <div className="col-lg-8">
+                            <div className="col-lg-8 vDrink">
                                 <div className="backButtonDiv">
                                     <button className="backButton btn btn-primary" onClick={() => {this.props.changeViewMode('viewList')}}>Back</button>
                                 </div>
-                                <h1 className="mt-4" className="selectedDrinkId" >Drink: {this.props.currentDrink.strDrink}</h1>
+                                <h1 className="mt-4" className="selectedDrinkId" >{this.props.currentDrink.strDrink}</h1>
                                 <div className="currentDrinkImageDiv">
                                     <img className="img-fluid rounded" className="currentDrinkImage" src={this.props.currentDrink.strDrinkThumb}></img>
                                 </div>
-                                <h4 className="lead text-justify" className="selectedDrinkId" >Category: {this.props.currentDrink.strCategory}</h4>
-                                <h4 className="lead text-justify" className="selectedDrinkId" >Ingredients: {this.props.currentDrink.strIngredient1} {this.props.currentDrink.strMeasure1}</h4>
-                                <h4 className="selectedDrinkId" >{this.props.currentDrink.strIngredient2} {this.props.currentDrink.strMeasure2}</h4>
-                                <h4 className="selectedDrinkId" >{this.props.currentDrink.strIngredient3} {this.props.currentDrink.strMeasure3}</h4>
-                                <h4 className="selectedDrinkId" >{this.props.currentDrink.strIngredient4} {this.props.currentDrink.strMeasure4}</h4>
-                                <h4 className="selectedDrinkId" >{this.props.currentDrink.strIngredient5} {this.props.currentDrink.strMeasure5}</h4>
-                                <h4 className="selectedDrinkId" >{this.props.currentDrink.strIngredient6} {this.props.currentDrink.strMeasure6}</h4>
+                                <p className="lead text-justify" className="selectedDrinkId2 vDText" >Category: {this.props.currentDrink.strCategory}</p>
+                                <p className="lead text-justify" className="selectedDrinkId2 vDText" >Ingredients: </p>
+                                <ol>
+                                    <li className="selectedDrinkId2" >{this.props.currentDrink.strIngredient2} {this.props.currentDrink.strMeasure2}</li>
+                                    <li className="selectedDrinkId2" >{this.props.currentDrink.strIngredient3} {this.props.currentDrink.strMeasure3}</li>
+                                    <li className="selectedDrinkId2" >{this.props.currentDrink.strIngredient4} {this.props.currentDrink.strMeasure4}</li>
+                                    <li className="selectedDrinkId2" >{this.props.currentDrink.strIngredient5} {this.props.currentDrink.strMeasure5}</li>
+                                    <li className="selectedDrinkId2" >{this.props.currentDrink.strIngredient6} {this.props.currentDrink.strMeasure6}</li>
+                                </ol>
                                 <div className="favoritesButtonDiv">
                                     <button className="favoritesButton btn btn-primary" onClick={() => {
                                         this.props.addingFavorites(this.props.currentDrink.idDrink)
