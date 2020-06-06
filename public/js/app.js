@@ -36,7 +36,7 @@ class SignUpForm extends React.Component {
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Sign Up Form</h5>
+                            <h3 class="modal-title" id="exampleModalLongTitle">Sign Up Form</h3>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                             </button>
@@ -169,7 +169,7 @@ class FavoritesPage extends React.Component {
         return (       
                     <div className="container">
                         <div>
-                            <h5>Favorites</h5>
+                            <h3>Favorites</h3>
                         </div>
                         <div>
                             <div>
@@ -198,11 +198,12 @@ class DrinksList extends React.Component {
 
     render () {
         return (
-            <div>
-                <button onClick={() => {this.props.changeViewMode('drinkSearch')}}>New Search</button>
+            <div className="container">
+                <button className="btn btn-primary" onClick={() => {this.props.changeViewMode('drinkSearch')}}>New Search</button>
                 <div className="container overflow-auto" id="drinkslist-cont">
                         {this.props.drinks.map((item) => {
                             return (
+                                <div className="card mb-4">
                                 <div className="row no-gutters" onClick={() => {
                                         this.props.openDrink(item.idDrink)
                                             }
@@ -215,6 +216,7 @@ class DrinksList extends React.Component {
                                             <h3 className="card-title">{item.strDrink}</h3>
                                         </div>
                                     </div>                            
+                                </div>
                                 </div>
                             )
                         })}
@@ -346,7 +348,7 @@ class AddDrink extends React.Component {
     render () {
         return (
                 <div className="container">
-                    <h3>Add Your Drink!</h3>
+                    <h3>Add Your Drink</h3>
                         <form onSubmit={this.props.addDrink}>
                             <div className="form-group">
                                 <label htmlFor="strDrink">Name</label>
