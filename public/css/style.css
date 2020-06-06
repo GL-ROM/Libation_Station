@@ -60,7 +60,7 @@
 }
 
 .carousel-inner {
-	height: 400px;
+	height: 200px;
 
 }
 
@@ -72,4 +72,20 @@
 
 #drinkslist-cont {
 	height: 450px;
+}
+
+.cImage {
+	height: 200px;
+}
+
+@media only screen 
+    and (min-device-width: 768px) 
+    and (max-device-width: 1024px) 
+    and (-webkit-min-device-pixel-ratio: 1) {
+		.carousel-inner {
+			height: 400px;
+		}
+		.cImage {
+			height: 400px;
+		}
 }

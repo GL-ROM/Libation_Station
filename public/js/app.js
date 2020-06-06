@@ -278,7 +278,7 @@ class Carousel extends React.Component {
                             if(index === 0) {
                                 return (
                                     <div className="carousel-item active">
-                                        <img className="d-block w-100" src={item.strDrinkThumb} onClick={() => {
+                                        <img className="d-block w-100 cImage" src={item.strDrinkThumb} onClick={() => {
                                             this.props.openDrink(item.idDrink)
                                         }}/>
                                     </div>
@@ -318,14 +318,12 @@ class Header extends React.Component {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarResponsive">
                         <ul className="navbar-nav">
-                            <li className="nav-item">
-                                <a className="nav-link" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" onClick={() => {
-                                    this.props.state.userActive ? this.props.logout() : this.props.changeViewMode('login')
-                                }}>{this.props.state.userActive ? 'Logout' : 'Login'}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a className="nav-link" data-toggle="modal" data-target="#sign-up-form-centered">Sign Up</a>
-                            </li>
+                            
+                            {!this.props.state.userActive && 
+                                <li class="nav-item">
+                                    <a className="nav-link" data-toggle="modal" data-target="#sign-up-form-centered">Sign Up</a>
+                                </li>
+                            }
                             {this.props.state.userActive &&
                                 <div>
                                     <li className="nav-item" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -340,7 +338,11 @@ class Header extends React.Component {
                                 </li>
                                 </div>
                             }
-                            
+                            <li className="nav-item">
+                                <a className="nav-link" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" onClick={() => {
+                                    this.props.state.userActive ? this.props.logout() : this.props.changeViewMode('login')
+                                }}>{this.props.state.userActive ? 'Logout' : 'Login'}</a>
+                            </li>
                         </ul>
                     </div>
                 </nav>   
@@ -433,6 +435,8 @@ class IngredientLister extends React.Component {
         )
     }
 }
+
+
 
 class App extends React.Component {
 
