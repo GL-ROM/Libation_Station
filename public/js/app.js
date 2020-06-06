@@ -74,7 +74,7 @@ class SignUpForm extends React.Component {
 class LoginForm extends React.Component {
     render () {
         return (
-            <div>
+            <div className="container">
                 <form onSubmit={this.props.handleLogin}>
                     <div className="form-group">
                         <label htmlFor="logEmail">Email</label>
@@ -85,7 +85,7 @@ class LoginForm extends React.Component {
                         <input id="logPass" className="form-control" type="text" value={this.props.password} onChange={this.props.handleChange}/>
                     </div>
                     <div>
-                        <input type="submit" value="login"/>
+                        <input className="btn btn-primary" type="submit" value="Login"/>
                     </div>
                 </form>
             </div>
@@ -96,6 +96,7 @@ class LoginForm extends React.Component {
 class CatDropdown extends React.Component {
     render () {
         return (
+            <div className="container">
                 <form>
                     <div className="form-group">
                         <label for="catSelect">Search Category:</label>
@@ -107,6 +108,7 @@ class CatDropdown extends React.Component {
                         </select>
                     </div>
                 </form>
+            </div>
         )
     }
 }
@@ -115,7 +117,7 @@ class CatList extends React.Component {
     
     render () { 
         return (
-                <div>
+                <div className="container">
                     <form onSubmit={this.props.handleSubmit}>
                         <div className="form-group">
                             {this.props.catSelect === 'i' ? 
@@ -152,7 +154,7 @@ class Form extends React.Component {
 
     render () {
         return (
-            <div>
+            <div className="container">
                 <CatDropdown handleChange={this.props.handleChange}/>
                 {/* <Test var={this.state.catSelect}/> */}
                 {this.props.state.catChosen === true && <CatList catList={this.props.state.catList} catSelect={this.props.state.catSelect} handleSubmit={this.props.handleSubmit}/>}
@@ -166,7 +168,7 @@ class Form extends React.Component {
 class FavoritesPage extends React.Component {   
     render () {
         return (       
-                    <div>
+                    <div className="container">
                         <div>
                             <h5>Favorites</h5>
                         </div>
@@ -178,7 +180,7 @@ class FavoritesPage extends React.Component {
                                                 <li>
                                                     <div>{drinks.strDrink}</div>
                                                     <div>
-                                                        <button id={index} onClick={this.deleteFromFavorites}>Remove</button>
+                                                        <button className="btn btn-primary" id={index} onClick={this.deleteFromFavorites}>Remove</button>
                                                     </div>
                                                 </li>
                                             )
@@ -280,18 +282,6 @@ class Carousel extends React.Component {
                                 </div>
                             )
                         })}
-                        {/* <div className="carousel-item active">
-                            <img className="d-block w-100" src="https://www.tasteofhome.com/wp-content/uploads/2018/01/Passion-Fruit-Hurricanes_EXPS_JMZ18_37571_C03_14_8b-1.jpg?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&h=500"  alt="First slide"/>
-                        </div>
-                        <div className="carousel-item">
-                            <img className="d-block w-100" src="https://www.lidl-recipes.ie/var/lidl-recipes/storage/images/lidl-recipes.ie/recipes/peach-passionfruit-and-mint-mojito/2861909-1-eng-IE/Peach-Passionfruit-And-Mint-Mojito_image1200x630.jpg?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&h=500"  alt="Second slide"/>
-                        </div>
-                        <div className="carousel-item">
-                            <img className="d-block w-100" src="https://i2.wp.com/theshortordercook.com/wp-content/uploads/2020/05/thumbnail_IMG_7171.jpg?resize=1200%2C550&ssl=1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&h=500"  alt="Third slide"/>
-                        </div>
-                        <div className="carousel-item">
-                            <img className="d-block w-100" src="https://www.lidl-recipes.ie/var/lidl-recipes/storage/images/lidl-recipes.ie/recipes/peach-passionfruit-and-mint-mojito/2861909-1-eng-IE/Peach-Passionfruit-And-Mint-Mojito_image1200x630.jpg?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&h=500"  alt="Third slide"/>
-                        </div> */}
                     </div>
                     <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                         <span className="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -345,7 +335,7 @@ class AddDrink extends React.Component {
 
     render () {
         return (
-                <div>
+                <div className="container">
                     <h3>Add Your Drink!</h3>
                         <form onSubmit={this.props.addDrink}>
                             <div className="form-group">
@@ -380,7 +370,7 @@ class AddDrink extends React.Component {
                             </div>
                             
                             <div>
-                                <input type="submit" value="Add"/>
+                                <input className="btn btn-primary" type="submit" value="Add"/>
                             </div>
                         </form>
                 </div>
