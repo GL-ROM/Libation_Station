@@ -282,6 +282,10 @@ class ViewDrink extends React.Component {
                                     <li className="selectedDrinkId2" >{this.props.currentDrink.strIngredient5} {this.props.currentDrink.strMeasure5}</li>
                                     <li className="selectedDrinkId2" >{this.props.currentDrink.strIngredient6} {this.props.currentDrink.strMeasure6}</li>
                                 </ol>
+                                <p className="selectedDrinkId2">Directions:</p>
+                                <p className="selectedDrinkId2">
+                                    {this.props.currentDrink.strInstructions}
+                                </p>
                                 <div className="favoritesButtonDiv">
                                     <button className="favoritesButton btn btn-primary" onClick={() => {
                                         this.props.addingFavorites(this.props.currentDrink.idDrink)
