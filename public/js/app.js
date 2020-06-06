@@ -236,12 +236,12 @@ class ViewDrink extends React.Component {
                             <img className="img-fluid rounded" className="currentDrinkImage" src={this.props.currentDrink.strDrinkThumb}></img>
                         </div>
                         <h4 className="lead text-justify" className="selectedDrinkId" >Category: {this.props.currentDrink.strCategory}</h4>
-                        <h4 className="lead text-justify" className="selectedDrinkId" >Ingredients: {this.props.currentDrink.strIngredient1}</h4>
-                        <h4 className="selectedDrinkId" >{this.props.currentDrink.strIngredient2}</h4>
-                        <h4 className="selectedDrinkId" >{this.props.currentDrink.strIngredient3}</h4>
-                        <h4 className="selectedDrinkId" >{this.props.currentDrink.strIngredient4}</h4>
-                        <h4 className="selectedDrinkId" >{this.props.currentDrink.strIngredient5}</h4>
-                        <h4 className="selectedDrinkId" >{this.props.currentDrink.strIngredient6}</h4>
+                        <h4 className="lead text-justify" className="selectedDrinkId" >Ingredients: {this.props.currentDrink.strIngredient1} {this.props.currentDrink.strMeasure1}</h4>
+                        <h4 className="selectedDrinkId" >{this.props.currentDrink.strIngredient2} {this.props.currentDrink.strMeasure2}</h4>
+                        <h4 className="selectedDrinkId" >{this.props.currentDrink.strIngredient3} {this.props.currentDrink.strMeasure3}</h4>
+                        <h4 className="selectedDrinkId" >{this.props.currentDrink.strIngredient4} {this.props.currentDrink.strMeasure4}</h4>
+                        <h4 className="selectedDrinkId" >{this.props.currentDrink.strIngredient5} {this.props.currentDrink.strMeasure5}</h4>
+                        <h4 className="selectedDrinkId" >{this.props.currentDrink.strIngredient6} {this.props.currentDrink.strMeasure6}</h4>
                         <button className="btn btn-primary" onClick={() => {
                             this.props.addingFavorites(this.props.currentDrink.idDrink)
                         }} >Add to Favorites</button>
