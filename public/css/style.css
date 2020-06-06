@@ -60,7 +60,14 @@
 }
 
 .carousel-inner {
-	height: 200px;
+	height: 400px;
+
+}
+
+.carousel-item img{
+	max-height: 400px;
+	object-fit: scale-down;
+	background-color: black;
 }
 
 #drinkslist-cont {
