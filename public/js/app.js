@@ -74,7 +74,7 @@ class SignUpForm extends React.Component {
 class LoginForm extends React.Component {
     render () {
         return (
-            <div>
+            <div className="container">
                 <form onSubmit={this.props.handleLogin}>
                     <div className="form-group">
                         <label htmlFor="logEmail">Email</label>
@@ -85,7 +85,7 @@ class LoginForm extends React.Component {
                         <input id="logPass" className="form-control" type="text" value={this.props.password} onChange={this.props.handleChange}/>
                     </div>
                     <div>
-                        <input type="submit" value="login"/>
+                        <input className="btn btn-primary" type="submit" value="Login"/>
                     </div>
                 </form>
             </div>
@@ -96,6 +96,7 @@ class LoginForm extends React.Component {
 class CatDropdown extends React.Component {
     render () {
         return (
+            <div className="container">
                 <form>
                     <div className="form-group">
                         <label for="catSelect">Search Category:</label>
@@ -107,6 +108,7 @@ class CatDropdown extends React.Component {
                         </select>
                     </div>
                 </form>
+            </div>
         )
     }
 }
@@ -115,7 +117,7 @@ class CatList extends React.Component {
     
     render () { 
         return (
-                <div>
+                <div className="container">
                     <form onSubmit={this.props.handleSubmit}>
                         <div className="form-group">
                             {this.props.catSelect === 'i' ? 
@@ -152,7 +154,7 @@ class Form extends React.Component {
 
     render () {
         return (
-            <div>
+            <div className="container">
                 <CatDropdown handleChange={this.props.handleChange}/>
                 {/* <Test var={this.state.catSelect}/> */}
                 {this.props.state.catChosen === true && <CatList catList={this.props.state.catList} catSelect={this.props.state.catSelect} handleSubmit={this.props.handleSubmit}/>}
@@ -165,7 +167,7 @@ class Form extends React.Component {
 class FavoritesPage extends React.Component {   
     render () {
         return (       
-                    <div>
+                    <div className="container">
                         <div>
                             <h5>Favorites</h5>
                         </div>
@@ -177,7 +179,7 @@ class FavoritesPage extends React.Component {
                                                 <li>
                                                     <div>{drinks.strDrink}</div>
                                                     <div>
-                                                        <button id={index} onClick={() => {
+                                                        <button className="btn btn-primary" id={index} onClick={() => {
                                                             this.props.removeFavorite(index);
                                                         }}>Remove</button>
                                                     </div>
@@ -337,7 +339,7 @@ class AddDrink extends React.Component {
 
     render () {
         return (
-                <div>
+                <div className="container">
                     <h3>Add Your Drink!</h3>
                         <form onSubmit={this.props.addDrink}>
                             <div className="form-group">
@@ -372,7 +374,7 @@ class AddDrink extends React.Component {
                             </div>
                             
                             <div>
-                                <input type="submit" value="Add"/>
+                                <input className="btn btn-primary" type="submit" value="Add"/>
                             </div>
                         </form>
                 </div>
