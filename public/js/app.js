@@ -82,12 +82,37 @@ class LoginForm extends React.Component {
                     </div>
                     <div className="form-group">
                         <label htmlFor="logPass">Password</label>
-                        <input id="logPass" type="password" className="form-control" type="text" value={this.props.password} onChange={this.props.handleChange}/>
+                        <input id="logPass" type="password" className="form-control" value={this.props.password} onChange={this.props.handleChange}/>
                     </div>
                     <div>
                         <input className="btn btn-primary" type="submit" value="Login"/>
                     </div>
                 </form>
+            </div>
+        )
+    }
+}
+
+class Alert extends React.Component {
+    render () {
+        return (
+            <div class="modal fade" id="exampleModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>{this.props.message}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+                </div>
+            </div>
             </div>
         )
     }
@@ -654,7 +679,7 @@ class App extends React.Component {
             })
         })
         .catch(error => {
-            console.log("Login Error: ", error);
+            <Alert message="Sorry, invalid email or password."/>
         })
     }
 
