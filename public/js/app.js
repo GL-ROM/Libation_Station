@@ -231,23 +231,27 @@ class ViewDrink extends React.Component {
         return (
                     <div className="container">
                         <div className="row"> 
-                        <div className="col-lg-8">
-                        <button className="btn btn-primary" onClick={() => {this.props.changeViewMode('drinkSearch')}}>Back</button>
-                        <h3 className="mt-4" className="selectedDrinkId" >Drink: {this.props.currentDrink.strDrink}</h3>
-                        <div className="currentDrinkImageDiv">
-                            <img className="img-fluid rounded" className="currentDrinkImage" src={this.props.currentDrink.strDrinkThumb}></img>
-                        </div>
-                        <h4 className="lead text-justify" className="selectedDrinkId" >Category: {this.props.currentDrink.strCategory}</h4>
-                        <h4 className="lead text-justify" className="selectedDrinkId" >Ingredients: {this.props.currentDrink.strIngredient1}</h4>
-                        <h4 className="selectedDrinkId" >{this.props.currentDrink.strIngredient2}</h4>
-                        <h4 className="selectedDrinkId" >{this.props.currentDrink.strIngredient3}</h4>
-                        <h4 className="selectedDrinkId" >{this.props.currentDrink.strIngredient4}</h4>
-                        <h4 className="selectedDrinkId" >{this.props.currentDrink.strIngredient5}</h4>
-                        <h4 className="selectedDrinkId" >{this.props.currentDrink.strIngredient6}</h4>
-                        <button className="btn btn-primary" onClick={() => {
-                            this.props.addingFavorites(this.props.currentDrink.idDrink)
-                        }} >Add to Favorites</button>
-                        </div>
+                            <div className="col-lg-8">
+                                <div className="backButtonDiv">
+                                    <button className="backButton btn btn-primary" onClick={() => {this.props.changeViewMode('drinkSearch')}}>Back</button>
+                                </div>
+                                <h1 className="mt-4" className="selectedDrinkId" >Drink: {this.props.currentDrink.strDrink}</h1>
+                                <div className="currentDrinkImageDiv">
+                                    <img className="img-fluid rounded" className="currentDrinkImage" src={this.props.currentDrink.strDrinkThumb}></img>
+                                </div>
+                                <h4 className="lead text-justify" className="selectedDrinkId" >Category: {this.props.currentDrink.strCategory}</h4>
+                                <h4 className="lead text-justify" className="selectedDrinkId" >Ingredients: {this.props.currentDrink.strIngredient1} {this.props.currentDrink.strMeasure1}</h4>
+                                <h4 className="selectedDrinkId" >{this.props.currentDrink.strIngredient2} {this.props.currentDrink.strMeasure2}</h4>
+                                <h4 className="selectedDrinkId" >{this.props.currentDrink.strIngredient3} {this.props.currentDrink.strMeasure3}</h4>
+                                <h4 className="selectedDrinkId" >{this.props.currentDrink.strIngredient4} {this.props.currentDrink.strMeasure4}</h4>
+                                <h4 className="selectedDrinkId" >{this.props.currentDrink.strIngredient5} {this.props.currentDrink.strMeasure5}</h4>
+                                <h4 className="selectedDrinkId" >{this.props.currentDrink.strIngredient6} {this.props.currentDrink.strMeasure6}</h4>
+                                <div className="favoritesButtonDiv">
+                                    <button className="favoritesButton btn btn-primary" onClick={() => {
+                                        this.props.addingFavorites(this.props.currentDrink.idDrink)
+                                    }} >Add to Favorites</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
         )
@@ -306,7 +310,9 @@ class Header extends React.Component {
     render () {
         return (
                 <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                    <a className="navbar-brand" href="#"><h3>Libation Station</h3></a>
+                    <a className="navbar-brand" href="#" onClick={() => {
+                        this.props.changeViewMode('drinkSearch')
+                    }}><h3>Libation Station</h3></a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
@@ -459,6 +465,7 @@ class App extends React.Component {
     }
 
     openDrink = (drinkId, event) => {
+        
         fetch(this.state.drinkIdURL + drinkId)
         .then(resp => resp.json())
         .then(json => this.setState({currentDrink: json.drinks[0]}, () => {
@@ -529,9 +536,22 @@ class App extends React.Component {
             .map(option => option.value)
         this.setState({searchFilters: selected}, () => {
             let filterStr = this.state.searchFilters.toString();
+            console.log('filterstr', filterStr)
             fetch(this.state.filterUrl + this.state.catSelect + '=' + filterStr)
                 .then(resp => resp.json())
-                .then(json => this.setState({drinks: json.drinks, viewMode: 'viewList'}))
+                .then((apiDrinks) => {
+                    fetch(`/drinks/${this.state.catSelect}/${selected}`)
+                    .then(resp => resp.json())
+                    .then(userDrinks => this.setState({
+                        drinks: [
+                            ...userDrinks,
+                            ...apiDrinks.drinks
+                        ],
+                        viewMode: 'viewList'
+                    }, () => {
+                        console.log('state of drinks', this.state.drinks)
+                    }))
+                })
         })
     }
 
@@ -561,6 +581,7 @@ class App extends React.Component {
                 strDrinkThumb: this.state.strDrinkThumb,
                 strIngredient: this.state.strIngredient,
                 strMeasure: this.state.strMeasure,
+                creator: this.state.currUserID
             }),
             method: "POST",
             headers: {

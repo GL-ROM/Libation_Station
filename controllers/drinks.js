@@ -34,18 +34,20 @@ router.post('/user', (req, res) => {
         // Once created - respond to client
         console.log(createdUser)});
     })
-    //create drink
-    router.post('/', (req, res) => {
-        console.log('body',req.body)
-        for(let i = 0; i < 15; i++) {
-            req.body[`strIngredient${i + 1}`] = req.body.strIngredient[i];
-            req.body[`strMeasure${i + 1}`] = req.body.strMeasure[i];
-        }
-        Drinks.create(req.body, (err, createDrink) => {
-            console.log(createDrink);
-            res.json(createDrink);
+//create drink
+router.post('/', (req, res) => {
+    console.log('body',req.body)
+    for(let i = 0; i < 15; i++) {
+        req.body[`strIngredient${i + 1}`] = req.body.strIngredient[i];
+        req.body[`strMeasure${i + 1}`] = req.body.strMeasure[i];
+    }
+    req.body.ingredientsArray = req.body.strIngredient
+    Drinks.create(req.body, (err, createDrink) => {
+        Drinks.findByIdAndUpdate(createDrink._id, {idDrink: createDrink._id}, (err, data) => {
+            res.json(createDrink)
         })
-    });
+    })
+});
 // handling user login request
 router.post('/login', (req, res) => {
     console.log("this is req.body: ", req.body);
@@ -73,6 +75,35 @@ router.put('/:userID/:action', (req, res) => {
         Users.findByIdAndUpdate(req.params.userID, {$pull: {favorites: req.body}}, (err, data) => {
             res.json(data)
         })
+    }
+})
+
+//searching through user drinks
+router.get('/:category/:value', (req, res) => {
+    console.log(req.params.category)
+    switch(req.params.category) {
+        case 'g':
+            Drinks.find({strGlass: req.params.category}, (err, data) => {
+                res.json(data)
+            });
+            break;
+        case 'c':
+            console.log('c evaluated', `category is ${req.params.category}`)
+            Drinks.find({strCategory: req.params.value}, (err, data) => {
+                res.json(data);
+            });
+            break;
+        case 'i':
+            let valArr = req.params.value.split(',')
+            for(let i = 0; i < valArr.length; i++) {
+                valArr[i] = valArr[i].toLowerCase();
+                console.log(valArr)
+            }
+            
+            Drinks.find({ingredientsArray: {$all: valArr}}, (err, data) => {
+                console.log(data)
+                res.json(data)
+            })
     }
 })
 

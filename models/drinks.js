@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const drinkSchema = new mongoose.Schema({
+    idDrink: String,
     strDrink: { type: String, required: false },
     strCategory: { type: String, required: false },
     strAlcoholic: { type: String, required: false },
@@ -36,7 +37,10 @@ const drinkSchema = new mongoose.Schema({
     strMeasure12: { type: String, required: false },
     strMeasure13: { type: String, required: false },
     strMeasure14: { type: String, required: false },
-    strMeasure15: { type: String, required: false }
+    strMeasure15: { type: String, required: false },
+    ingredientsArray: [],
+    userCreated: {type: Boolean, default: true},
+    creator: String
 });
 
 const Drinks = mongoose.model("Drink", drinkSchema);
