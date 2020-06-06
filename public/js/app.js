@@ -179,7 +179,9 @@ class FavoritesPage extends React.Component {
                                                 <li>
                                                     <div>{drinks.strDrink}</div>
                                                     <div>
-                                                        <button className="btn btn-primary" id={index} onClick={this.deleteFromFavorites}>Remove</button>
+                                                        <button className="btn btn-primary" id={index} onClick={() => {
+                                                            this.props.removeFavorite(index);
+                                                        }}>Remove</button>
                                                     </div>
                                                 </li>
                                             )
@@ -479,6 +481,25 @@ class App extends React.Component {
         })
     }
 
+    removeFavorite = (index) => {
+        fetch(`/drinks/${this.state.currUserID}/delete`, {
+            body: JSON.stringify(this.state.currentDrink.idDrink),
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then((resp) => {
+            this.setState({
+                favorites: [
+                    ...this.state.favorites.slice(0, index),
+                    ...this.state.favorites.slice(index + 1)
+                ]
+            })
+        }) 
+    }
+
 
 
     handleCatSel = (event) => {
@@ -614,7 +635,7 @@ class App extends React.Component {
                 return <AddDrink state={this.state} handleChange={this.handleChange} handleSubmit={this.addIngredient} addDrink={this.addDrink}/>;
                 break;
             case 'viewFavs':
-                return <FavoritesPage props={this.state.currentDrink} favorites={this.state.favorites} openFavorites={this.state.openFavorites} />;
+                return <FavoritesPage props={this.state.currentDrink} favorites={this.state.favorites} openFavorites={this.state.openFavorites} removeFavorite={this.removeFavorite}/>;
                 break;
             case 'login':
                 return <LoginForm state={this.state} handleChange={this.handleChange} handleLogin={this.handleLogin} changeViewMode={this.changeViewMode}/>
