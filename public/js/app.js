@@ -474,7 +474,7 @@ class App extends React.Component {
     }
 
     openDrink = (drinkId, drink, event) => {
-        if(drink.userCreated) {
+        if(drinkId.length > 6) {
             this.setState({currentDrink: drink, viewMode: 'viewDrink'})
         }
         fetch(this.state.drinkIdURL + drinkId)
