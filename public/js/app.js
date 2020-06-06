@@ -527,9 +527,22 @@ class App extends React.Component {
             .map(option => option.value)
         this.setState({searchFilters: selected}, () => {
             let filterStr = this.state.searchFilters.toString();
+            console.log('filterstr', filterStr)
             fetch(this.state.filterUrl + this.state.catSelect + '=' + filterStr)
                 .then(resp => resp.json())
-                .then(json => this.setState({drinks: json.drinks, viewMode: 'viewList'}))
+                .then((apiDrinks) => {
+                    fetch(`/drinks/${this.state.catSelect}/${selected}`)
+                    .then(resp => resp.json())
+                    .then(userDrinks => this.setState({
+                        drinks: [
+                            ...userDrinks,
+                            ...apiDrinks.drinks
+                        ],
+                        viewMode: 'viewList'
+                    }, () => {
+                        console.log('state of drinks', this.state.drinks)
+                    }))
+                })
         })
     }
 
