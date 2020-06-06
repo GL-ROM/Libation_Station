@@ -230,7 +230,9 @@ class ViewDrink extends React.Component {
                     <div className="container">
                         <div className="row"> 
                             <div className="col-lg-8">
-                                <button className="btn btn-primary" onClick={() => {this.props.changeViewMode('drinkSearch')}}>Back</button>
+                                <div className="backButtonDiv">
+                                    <button className="backButton btn btn-primary" onClick={() => {this.props.changeViewMode('drinkSearch')}}>Back</button>
+                                </div>
                                 <h1 className="mt-4" className="selectedDrinkId" >Drink: {this.props.currentDrink.strDrink}</h1>
                                 <div className="currentDrinkImageDiv">
                                     <img className="img-fluid rounded" className="currentDrinkImage" src={this.props.currentDrink.strDrinkThumb}></img>
@@ -242,9 +244,11 @@ class ViewDrink extends React.Component {
                                 <h4 className="selectedDrinkId" >{this.props.currentDrink.strIngredient4} {this.props.currentDrink.strMeasure4}</h4>
                                 <h4 className="selectedDrinkId" >{this.props.currentDrink.strIngredient5} {this.props.currentDrink.strMeasure5}</h4>
                                 <h4 className="selectedDrinkId" >{this.props.currentDrink.strIngredient6} {this.props.currentDrink.strMeasure6}</h4>
-                                <button className="btn btn-primary" onClick={() => {
-                                    this.props.addingFavorites(this.props.currentDrink.idDrink)
-                                }} >Add to Favorites</button>
+                                <div className="favoritesButtonDiv">
+                                    <button className="favoritesButton btn btn-primary" onClick={() => {
+                                        this.props.addingFavorites(this.props.currentDrink.idDrink)
+                                    }} >Add to Favorites</button>
+                                </div>
                             </div>
                         </div>
                     </div>
