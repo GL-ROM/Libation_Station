@@ -74,7 +74,7 @@ class SignUpForm extends React.Component {
 class LoginForm extends React.Component {
     render () {
         return (
-            <div className="container">
+            <div className="container mt-3">
                 <form onSubmit={this.props.handleLogin}>
                     <div className="form-group">
                         <label htmlFor="logEmail">Email</label>
