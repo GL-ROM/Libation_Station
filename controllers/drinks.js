@@ -34,20 +34,20 @@ router.post('/user', (req, res) => {
         // Once created - respond to client
         console.log(createdUser)});
     })
-    //create drink
-    router.post('/', (req, res) => {
-        console.log('body',req.body)
-        for(let i = 0; i < 15; i++) {
-            req.body[`strIngredient${i + 1}`] = req.body.strIngredient[i];
-            req.body[`strMeasure${i + 1}`] = req.body.strMeasure[i];
-        }
-        req.body.ingredientsArray = req.body.strIngredient
-        Drinks.create(req.body, (err, createDrink) => {
-            Drinks.findByIdAndUpdate(createDrink._id, {idDrink: createDrink._id}, (err, data) => {
-                res.json(createDrink)
-            })
+//create drink
+router.post('/', (req, res) => {
+    console.log('body',req.body)
+    for(let i = 0; i < 15; i++) {
+        req.body[`strIngredient${i + 1}`] = req.body.strIngredient[i];
+        req.body[`strMeasure${i + 1}`] = req.body.strMeasure[i];
+    }
+    req.body.ingredientsArray = req.body.strIngredient
+    Drinks.create(req.body, (err, createDrink) => {
+        Drinks.findByIdAndUpdate(createDrink._id, {idDrink: createDrink._id}, (err, data) => {
+            res.json(createDrink)
         })
-    });
+    })
+});
 // handling user login request
 router.post('/login', (req, res) => {
     console.log("this is req.body: ", req.body);
